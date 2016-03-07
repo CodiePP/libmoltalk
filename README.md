@@ -45,6 +45,7 @@ the unit tests are found in
 
 ## Dependencies
 
-[boost](www.boost.org)
+[boost](http://www.boost.org)
+
 [gitalk](https://github.com/CodiePP/gitalk)
 
