@@ -2,6 +2,8 @@
 
 structural bioinformatics algorithms
 
+[Kanban view](https://huboard.com/CodiePP/libmoltalk)
+
 ## Features
 
 * tbd
