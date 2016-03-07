@@ -24,12 +24,15 @@ At the root besides the "libmoltalk" files you should have already cloned "gital
 enter libmoltalk and generate source code
 
 >dev$ cd libmoltalk
+
 >dev$ cd src/Cpp
+
 >dev$ ./mk_libmoltalk.sh
 
 enter libmoltalk's root and create Makefiles
 
 >dev$ cd ../../
+
 >dev$ cmake -D CMAKE_BUILD_TYPE=Debug
 
 then, compile and link
@@ -37,6 +40,7 @@ then, compile and link
 
 the unit tests are found in 
 >dev$ cd src/Cpp/tests
+
 >dev$ ./UT_libmoltalk
 
 ## Dependencies
