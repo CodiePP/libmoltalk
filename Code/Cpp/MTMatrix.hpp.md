@@ -36,90 +36,90 @@ namespace [mt](namespace_mt.list) {
 
 >virtual int rows() const override { return _transposed?_cols:_rows; }
 
->virtual std::string [toString](MTMatrix_toString.cpp)() const override;
+>virtual std::string [toString](MTMatrix_toString.cpp.md)() const override;
 
->virtual double [atRowCol](MTMatrix_atRowCol.cpp)(int row, int col) const override;
+>virtual double [atRowCol](MTMatrix_atRowCol.cpp.md)(int row, int col) const override;
 
->virtual MTMatrix [matrixOfColumn](MTMatrix_matrixOfColumn.cpp)(int col) const final;
+>virtual MTMatrix [matrixOfColumn](MTMatrix_matrixOfColumn.cpp.md)(int col) const final;
 
->virtual void [linearizeTo](MTMatrix_linearizeTo.cpp)(double *mat, int count) const final; // write to array
+>virtual void [linearizeTo](MTMatrix_linearizeTo.cpp.md)(double *mat, int count) const final; // write to array
 
 ##		/* setter */
 
->virtual void [atRowColValue](MTMatrix_atRowColValue.cpp)(int row, int col, double v) override;
+>virtual void [atRowColValue](MTMatrix_atRowColValue.cpp.md)(int row, int col, double v) override;
 
 ##		/* matrix operations */
 
->virtual void [transpose](MTMatrix_transpose.cpp)() override;
+>virtual void [transpose](MTMatrix_transpose.cpp.md)() override;
 
->virtual MTMatrix [x](MTMatrix_x.cpp)(MTMatrix const & m2) const;
+>virtual MTMatrix [x](MTMatrix_x.cpp.md)(MTMatrix const & m2) const;
 
->virtual MTMatrix [mmultiply](MTMatrix_mmultiply.cpp)(MTMatrix const & m2) const;
+>virtual MTMatrix [mmultiply](MTMatrix_mmultiply.cpp.md)(MTMatrix const & m2) const;
 
->virtual MTMatrix [msubtract](MTMatrix_msubtract.cpp)(MTMatrix const & m2) const;
+>virtual MTMatrix [msubtract](MTMatrix_msubtract.cpp.md)(MTMatrix const & m2) const;
 
->virtual MTMatrix [madd](MTMatrix_madd.cpp)(MTMatrix const & m2) const;
+>virtual MTMatrix [madd](MTMatrix_madd.cpp.md)(MTMatrix const & m2) const;
 
->virtual void [addScalar](MTMatrix_addScalar.cpp)(double scal) override;
+>virtual void [addScalar](MTMatrix_addScalar.cpp.md)(double scal) override;
 
 >virtual void subtractScalar(double scal) { addScalar( - scal); }
 
->virtual void [multiplyByScalar](MTMatrix_multiplyByScalar.cpp)(double scal) override;
+>virtual void [multiplyByScalar](MTMatrix_multiplyByScalar.cpp.md)(double scal) override;
 
->virtual void [divideByScalar](MTMatrix_divideByScalar.cpp)(double scal);
+>virtual void [divideByScalar](MTMatrix_divideByScalar.cpp.md)(double scal);
 
->virtual MTMatrix [diagonalizeWithMaxError](MTMatrix_diagonalizeWithMaxError.cpp)(double p_error) const final;
+>virtual MTMatrix [diagonalizeWithMaxError](MTMatrix_diagonalizeWithMaxError.cpp.md)(double p_error) const final;
 
 ~~~ { .cpp }
 #ifdef USE_GSL
 ~~~
 
->virtual MTMatrix [gslDiagonalizeWithMaxError](MTMatrix_gslDiagonalizeWithMaxError.cpp)(double p_error) const final;
+>virtual MTMatrix [gslDiagonalizeWithMaxError](MTMatrix_gslDiagonalizeWithMaxError.cpp.md)(double p_error) const final;
 
 ~~~ { .cpp }
 #endif
 ~~~
 
->virtual MTMatrix [jacobianDiagonalizeWithMaxError](MTMatrix_jacobianDiagonalizeWithMaxError.cpp)(double error) const final;
+>virtual MTMatrix [jacobianDiagonalizeWithMaxError](MTMatrix_jacobianDiagonalizeWithMaxError.cpp.md)(double error) const final;
 
->virtual MTMatrix [centerOfMass](MTMatrix_centerOfMass.cpp)() const;
+>virtual MTMatrix [centerOfMass](MTMatrix_centerOfMass.cpp.md)() const;
 
->virtual double [sum](MTMatrix_sum.cpp)() const;
+>virtual double [sum](MTMatrix_sum.cpp.md)() const;
 
->virtual void [square](MTMatrix_square.cpp)();
+>virtual void [square](MTMatrix_square.cpp.md)();
 
 ###		/* operations on single cells */
 
->virtual void [atRowColAdd](MTMatrix_atRowColAdd.cpp)(int row, int col, double v);
+>virtual void [atRowColAdd](MTMatrix_atRowColAdd.cpp.md)(int row, int col, double v);
 
 >virtual void atRowColSub(int row, int col, double v) { atRowColAdd(row,col,  - v); }
 
->virtual void [atRowColMult](MTMatrix_atRowColMult.cpp)(int row, int col, double v);
+>virtual void [atRowColMult](MTMatrix_atRowColMult.cpp.md)(int row, int col, double v);
 
->virtual void [atRowColDiv](MTMatrix_atRowColDiv.cpp)(int rowm, int col, double v);
+>virtual void [atRowColDiv](MTMatrix_atRowColDiv.cpp.md)(int rowm, int col, double v);
 
 
 ##		/* complex operations */
 
-//>[MTMatrix53](MTMatrix53.hpp) [alignTo](MTMatrix_alignTo.cpp)(MTMatrix const & m2) const;
+//>[MTMatrix53](MTMatrix53.hpp) [alignTo](MTMatrix_alignTo.cpp.md)(MTMatrix const & m2) const;
 
 ##		/* creation */
 
->explicit [MTMatrix](MTMatrix_ctor.cpp)(int rows, int cols);
+>explicit [MTMatrix](MTMatrix_ctor.cpp.md)(int rows, int cols);
 
->[MTMatrix](MTMatrix_ctor.cpp)(MTMatrix const & m);
+>[MTMatrix](MTMatrix_ctor.cpp.md)(MTMatrix const & m);
 
->[MTMatrix](MTMatrix_ctor.cpp)(std::string const & str);
+>[MTMatrix](MTMatrix_ctor.cpp.md)(std::string const & str);
 
->virtual [~MTMatrix](MTMatrix_dtor.cpp)();
+>virtual [~MTMatrix](MTMatrix_dtor.cpp.md)();
 
->MTMatrix & [operator=](MTMatrix_ctor.cpp)(MTMatrix const & m);
+>MTMatrix & [operator=](MTMatrix_ctor.cpp.md)(MTMatrix const & m);
 
 ## /* brewery */
 
->//[code header](MTMatrix_-alpha-)();
+>//[code header](MTMatrix_-alpha-.md)();
 
->//[code trailer](MTMatrix_-omega-)();
+>//[code trailer](MTMatrix_-omega-.md)();
 
 
 ~~~ { .cpp }
