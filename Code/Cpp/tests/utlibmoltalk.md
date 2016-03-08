@@ -4,6 +4,8 @@
 
 [utMTVector](utMTVector.cpp.md) for class [MTVector](../MTVector.hpp.md)
 
+[utMTMatrix](utMTMatrix.cpp.md) for class [MTMatrix](../MTMatrix.hpp.md)
+
 
 ## main entry point
 
