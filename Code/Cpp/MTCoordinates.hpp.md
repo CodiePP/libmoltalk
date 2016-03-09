@@ -73,9 +73,9 @@ public:
 
 ## /* brewery */
 
->//[code header](MTCoordinates_-alpha-)();
+>//[code header](MTCoordinates_-alpha-.md)();
 
->//[code trailer](MTCoordinates_-omega-)();
+>//[code trailer](MTCoordinates_-omega-.md)();
 
 
 ~~~ { .cpp }
