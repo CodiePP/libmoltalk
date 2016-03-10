@@ -1,3 +1,9 @@
+/*
+ *  Copyright 2016 by Alexander Diemand
+ *
+ *  [LICENSE](../../LICENSE)
+ */
+
 
 # libmoltalk
 
@@ -33,5 +39,46 @@ Class that implements a rotation matrix.
 
 [MTMatrix44](MTMatrix44.hpp.md)
 
+## MTDataKV
+
+Simple key/value store.
+
+[MTDataKV](MTDataKV.hpp.md)
+
+
+## MTAtom
+
+Class to represent single atom.
+
+[MTAtom](MTAtom.hpp.md)
+[MTAtomFactory](MTAtomFactory.hpp.md)
+
+## MTResidue
+
+Class to represent a chain of residues.
+
+[MTResidue](MTResidue.hpp.md)
+[MTResidueAA](MTResidueAA.hpp.md)
+[MTResidueFactory](MTResidueFactory.hpp.md)
+
+## MTChain
+
+Class to represent a chain of residues.
+
+[MTChain](MTChain.hpp.md)
+[MTChainFactory](MTChainFactory.hpp.md)
+
+## MTStructure
+
+Class to represent a structure.
+
+[MTStructure](MTStructure.hpp.md)
+[MTStructureFactory](MTStructureFactory.hpp.md)
+
+## MTPDBParser
+
+Parser for structure data in PDB file format.
+
+[MTPDBParser](MTPDBParser.hpp.md)
 
 

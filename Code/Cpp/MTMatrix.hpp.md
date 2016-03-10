@@ -1,7 +1,10 @@
-
-<fpaste ../../LICENSE>
-
 ~~~ { .cpp }
+/*
+ *  Copyright 2016 by Alexander Diemand
+ *
+ *  [LICENSE](../../LICENSE)
+ */
+
 #pragma once
 
 #include "MTMatrixInterface.hpp"

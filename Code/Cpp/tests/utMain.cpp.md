@@ -1,3 +1,7 @@
+Copyright 2016 by Alexander Diemand
+
+[LICENSE](../../LICENSE)
+
 ~~~ { .cpp }
 
 // Boost link dynamically
