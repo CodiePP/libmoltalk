@@ -1,0 +1,9 @@
+@startuml
+
+MTStructure *-- MTChain
+
+MTChain *-- MTResidue
+
+MTResidue *-- MTAtom
+
+@enduml
