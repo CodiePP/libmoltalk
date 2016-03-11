@@ -56,7 +56,7 @@ void MyModule::doing_something_else(mt::MTDataKV & o)
 }
 ~~~
 
-# Test case: call_fun1
+## Test case: call_fun1
 ~~~ { .cpp }
 BOOST_AUTO_TEST_CASE( call_fun1 )
 {
