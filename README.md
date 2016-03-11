@@ -2,14 +2,15 @@
 
 structural bioinformatics algorithms
 
-### Browse source code
+* Browse source code
 [libmoltalk.md](Code/Cpp/libmoltalk.md)
 
-### Browse test cases
+* Browse test cases
 [utlibmoltalk.md](Code/Cpp/tests/utlibmoltalk.md)
 
-### Issues
+* Issues
 [Kanban view](https://huboard.com/CodiePP/libmoltalk)
+
 
 ## Features
 
