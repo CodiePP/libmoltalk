@@ -1,5 +1,9 @@
 # Unit tests for libmoltalk
 
+all entries here are parsed and used in source code generation
+and subsequentially be compiled and linked against the 
+libmoltalk library.
+
 ## unit tests
 
 [utMTCoordinates](utMTCoordinates.cpp.md) for class [MTCoordinates](../MTCoordinates.hpp.md)
@@ -27,6 +31,8 @@
 [utMTStructureFactory](utMTStructureFactory.cpp.md) for class [MTStructureFactory](../MTStructureFactory.hpp.md)
 
 [utMTPDBParser](utMTPDBParser.cpp.md) for class [MTPDBParser](../MTPDBParser.hpp.md)
+
+[utMTModule](utMTModule.cpp.md) for class [MTModule](../MTModule.hpp.md)
 
 
 ## main entry point

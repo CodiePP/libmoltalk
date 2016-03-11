@@ -1,11 +1,9 @@
-/*
- *  Copyright 2016 by Alexander Diemand
- *
- *  [LICENSE](../../LICENSE)
- */
-
 
 # libmoltalk
+
+>  Copyright 2016 by Alexander Diemand
+
+>  [LICENSE](../../LICENSE)
 
 ## MTVector
 
@@ -81,4 +79,9 @@ Parser for structure data in PDB file format.
 
 [MTPDBParser](MTPDBParser.hpp.md)
 
+## MTModule
+
+Dynamically load plugins from DLL
+
+[MTModule](MTModule.hpp.md)
 
