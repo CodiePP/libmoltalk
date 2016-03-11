@@ -17,13 +17,9 @@ MTMatrix44 MTMatrix53::getRotation() const
 	return m;
 }
 
-MTMatrix44 MTMatrix53::getTranslation() const
+MTCoordinates MTMatrix53::getTranslation() const
 {
-	MTMatrix44 m;
-	m.atRowColValue(3,0, atRowCol(4,0));
-	m.atRowColValue(3,1, atRowCol(4,1));
-	m.atRowColValue(3,2, atRowCol(4,2));
-	return m;
+	return MTCoordinates(atRowCol(4,0), atRowCol(4,1), atRowCol(4,2));
 }
 
 MTCoordinates MTMatrix53::getOrigin() const

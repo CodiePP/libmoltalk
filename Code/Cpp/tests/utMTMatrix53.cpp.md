@@ -92,16 +92,12 @@ BOOST_AUTO_TEST_CASE( test_getTranslation )
     m.atRowColValue(3,1, 1.0 );
     m.atRowColValue(3,2, -1.0 );
     m.atRowColValue(4,0, 2.0 );
-    m.atRowColValue(4,1, 2.0 );
-    m.atRowColValue(4,2, 2.0 );
+    m.atRowColValue(4,1, 2.1 );
+    m.atRowColValue(4,2, 2.2 );
     auto t = m.getTranslation();
-    BOOST_CHECK_EQUAL( t.atRowCol(0,0), 1.0 );
-    BOOST_CHECK_EQUAL( t.atRowCol(1,1), 1.0 );
-    BOOST_CHECK_EQUAL( t.atRowCol(2,2), 1.0 );
-    BOOST_CHECK_EQUAL( t.atRowCol(3,3), 1.0 );
-    BOOST_CHECK_EQUAL( t.atRowCol(3,0), 2.0 );
-    BOOST_CHECK_EQUAL( t.atRowCol(3,1), 2.0 );
-    BOOST_CHECK_EQUAL( t.atRowCol(3,2), 2.0 );
+    BOOST_CHECK_EQUAL( t.x(), 2.0 );
+    BOOST_CHECK_EQUAL( t.y(), 2.1 );
+    BOOST_CHECK_EQUAL( t.z(), 2.2 );
 }
 ~~~
 

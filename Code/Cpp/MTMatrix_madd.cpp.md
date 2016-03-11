@@ -6,18 +6,18 @@ declared in [MTMatrix](MTMatrix.hpp.md)
 ~~~ { .cpp }
 MTMatrix MTMatrix::madd(MTMatrix const & m2) const
 {
-        int row,col;
-        row = m2.rows();
-        col = m2.cols();
-        if ((row != rows()) && (col != cols()))
+        int _rows,_cols;
+        _rows = m2.rows();
+        _cols = m2.cols();
+        if ((_rows != rows()) && (_cols != cols()))
         {
                 throw "Matrix-madd: needs a matrix with same rows and cols";
         }
-        MTMatrix res = MTMatrix(row, col);
+        MTMatrix res = MTMatrix(_rows, _cols);
         int icol,irow;
-        for (irow=0; irow<row; irow++)
+        for (irow=0; irow<_rows; irow++)
         {
-                for (icol=0; icol<col; icol++)
+                for (icol=0; icol<_cols; icol++)
                 {
                         res.atRowColValue(irow, icol, atRowCol(irow, icol) + m2.atRowCol(irow, icol));
                 } /* icol */

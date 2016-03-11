@@ -30,7 +30,7 @@ public:
 
 >virtual [MTMatrix44](MTMatrix44.hpp.md) [getRotation](MTMatrix53_getter.cpp.md)() const;
 
->virtual [MTMatrix44](MTMatrix44.hpp.md) [getTranslation](MTMatrix53_getter.cpp.md)() const;
+>virtual [MTCoordinates](MTCoordinates.hpp.md) [getTranslation](MTMatrix53_getter.cpp.md)() const;
 
 >virtual [MTCoordinates](MTCoordinates.hpp.md) [getOrigin](MTMatrix53_getter.cpp.md)() const;
 
