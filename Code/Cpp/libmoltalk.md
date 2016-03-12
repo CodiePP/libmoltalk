@@ -37,6 +37,12 @@ Class that implements a rotation matrix.
 
 [MTMatrix44](MTMatrix44.hpp.md)
 
+## MTQuaternion
+
+Class that represents a quaternion.
+
+[MTQuaternion](MTQuaternion.hpp.md)
+
 ## MTDataKV
 
 Simple key/value store.
