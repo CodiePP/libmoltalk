@@ -12,14 +12,14 @@ MTStructure* IStructureFactory::newInstance()
 ~~~
 
 ~~~ { .cpp }
-std::shared_ptr<MTStructure> MTStructureFactory::newStructure()
+MTStructure* MTStructureFactory::newStructure()
 {
-    return std::shared_ptr<MTStructure>(newInstance());
+    return newInstance();
 }
 ~~~
 
 ~~~ { .cpp }
-std::shared_ptr<MTStructure> MTStructureFactory::newStructureFromPDBDirectory(std::string const p_code, long options)
+MTStructure* MTStructureFactory::newStructureFromPDBDirectory(std::string const p_code, long options)
 {
 	if (p_code.length() < 4) {
 	   std::clog << "structure code is too short!" << std::endl;
@@ -44,7 +44,7 @@ std::shared_ptr<MTStructure> MTStructureFactory::newStructureFromPDBDirectory(st
 ~~~
 
 ~~~ { .cpp }
-std::shared_ptr<MTStructure> MTStructureFactory::newStructureFromPDBFile(std::string const fp, long options)
+MTStructure* MTStructureFactory::newStructureFromPDBFile(std::string const fp, long options)
 {
 	if (boost::filesystem::exists(fp)) {
 		std::clog << "found file " << fp << std::endl;
@@ -61,7 +61,7 @@ std::shared_ptr<MTStructure> MTStructureFactory::newStructureFromPDBFile(std::st
 	
 	MTPDBParser _parser(options);
 	auto s = _parser.parseStructureFromPDBStream(_istr);
-	return std::shared_ptr<MTStructure>(s);
+	return s;
 }
 ~~~
 

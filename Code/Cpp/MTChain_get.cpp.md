@@ -2,7 +2,7 @@
 declared in [MTChain](MTChain.hpp.md)
 
 ~~~ { .cpp }
-std::shared_ptr<MTResidue> MTChain::getResidue(unsigned int num, char subcode) const
+MTResidue* MTChain::getResidue(unsigned int num, char subcode) const
 {
 	std::string id = MTResidue::computeKey(num, subcode);
 	auto r = _residues.find(id);
@@ -21,7 +21,7 @@ std::shared_ptr<MTResidue> MTChain::getResidue(unsigned int num, char subcode) c
 	return nullptr;
 }
 
-std::shared_ptr<MTResidue> MTChain::findResidue(std::function<bool(std::shared_ptr<MTResidue> const &)> const & fn) const
+MTResidue* MTChain::findResidue(std::function<bool(MTResidue* const &)> const & fn) const
 {
 	for (auto const & e : _residues) {
 		if (e.second && fn(e.second)) { return e.second; }
@@ -29,7 +29,7 @@ std::shared_ptr<MTResidue> MTChain::findResidue(std::function<bool(std::shared_p
 	return nullptr;
 }
 
-std::shared_ptr<MTResidue> MTChain::getHeterogen(unsigned int num, char subcode) const
+MTResidue* MTChain::getHeterogen(unsigned int num, char subcode) const
 {
 	std::string id = MTResidue::computeKey(num, subcode);
 	auto r = _heterogens.find(id);
@@ -38,7 +38,7 @@ std::shared_ptr<MTResidue> MTChain::getHeterogen(unsigned int num, char subcode)
 	return nullptr;
 }
 
-std::shared_ptr<MTResidue> MTChain::findHeterogen(std::function<bool(std::shared_ptr<MTResidue> const &)> const & fn) const
+MTResidue* MTChain::findHeterogen(std::function<bool(MTResidue* const &)> const & fn) const
 {
 	for (auto const & e : _heterogens) {
 		if (e.second && fn(e.second)) { return e.second; }
@@ -46,7 +46,7 @@ std::shared_ptr<MTResidue> MTChain::findHeterogen(std::function<bool(std::shared
 	return nullptr;
 }
 
-std::shared_ptr<MTResidue> MTChain::getSolvent(unsigned int num, char subcode) const
+MTResidue* MTChain::getSolvent(unsigned int num, char subcode) const
 {
 	std::string id = MTResidue::computeKey(num, subcode);
 	auto r = _solvent.find(id);
@@ -55,7 +55,7 @@ std::shared_ptr<MTResidue> MTChain::getSolvent(unsigned int num, char subcode) c
 	return nullptr;
 }
 
-std::shared_ptr<MTResidue> MTChain::findSolvent(std::function<bool(std::shared_ptr<MTResidue> const &)> const & fn) const
+MTResidue* MTChain::findSolvent(std::function<bool(MTResidue* const &)> const & fn) const
 {
 	for (auto const & e : _solvent) {
 		if (e.second && fn(e.second)) { return e.second; }

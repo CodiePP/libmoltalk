@@ -30,12 +30,12 @@ BOOST_AUTO_TEST_CASE( manipulate_models )
 
 	BOOST_CHECK_EQUAL( 1, strx->models() );
 	BOOST_CHECK_EQUAL( 1, strx->currentModel() );
-	auto c1 = std::shared_ptr<mt::MTChain>(new mt::MTChain('A'));
+	auto c1 = new mt::MTChain('A');
 	strx->addChain(c1);
 	strx->addModel();
 	BOOST_CHECK_EQUAL( 2, strx->models() );
 	BOOST_CHECK_EQUAL( 2, strx->currentModel() );
-	auto c2 = std::shared_ptr<mt::MTChain>(new mt::MTChain('B'));
+	auto c2 = new mt::MTChain('B');
 	strx->addChain(c2);
 	BOOST_CHECK_EQUAL( 1, strx->switchToModel(1) );
 	BOOST_CHECK( bool(strx->getChain(65)) );
@@ -71,15 +71,15 @@ BOOST_AUTO_TEST_CASE( manipulate_chains )
 	auto c1 = strx->getChain(65);
 	BOOST_CHECK( ! bool(c1) );
 
-	c1 = std::shared_ptr<mt::MTChain>(new mt::MTChain('A'));
+	c1 = new mt::MTChain('A');
 	strx->addChain(c1);
 
-	c1.reset();
+	c1=nullptr;
 	c1 = strx->getChain(65);
 	BOOST_CHECK( bool(c1) );
 
 	strx->removeChain(c1);
-	c1.reset();
+	c1=nullptr;
 	c1 = strx->getChain(65);
 	BOOST_CHECK( ! bool(c1) );
 }

@@ -23,7 +23,7 @@ std::string MTChain::eccode() const
 		return _s; }
 	return "";
 }
-std::shared_ptr<MTStructure> MTChain::structure() const
+MTStructure* MTChain::structure() const
 {
 	return _strx;
 }

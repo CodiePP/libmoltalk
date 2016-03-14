@@ -71,7 +71,7 @@ struct MTPDBParser::pimpl {
         int _lastrevnr;
         timestamp _lastrevdate;
 
-        std::unordered_map<char, std::shared_ptr<MTChain>> relation_chain_seqres;
+        std::unordered_map<char, MTChain*> relation_chain_seqres;
         std::unordered_map<char, int> relation_chain_molid;
         std::unordered_map<int, std::string> relation_molid_eccode;
         std::unordered_map<int, std::string> relation_molid_compound;

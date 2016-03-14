@@ -266,7 +266,7 @@ BOOST_AUTO_TEST_CASE( parse_atoms )
 	mt::MTPDBParser _parser;
 	auto _strx = _parser.parseStructureFromPDBFile(fname);
 
-	_strx->findChain([](std::shared_ptr<mt::MTChain> const & c)->bool {
+	_strx->findChain([](mt::MTChain* const & c)->bool {
 		std::clog << "    chain " << c->number() << " n:" << c->name() << " d:" << c->description() << " pdb:" << c->fullPDBCode() << std::endl;
 		return false;
 	});
@@ -275,7 +275,7 @@ BOOST_AUTO_TEST_CASE( parse_atoms )
 	BOOST_CHECK( bool(_chain) );
 	BOOST_CHECK_EQUAL( 2, _chain->countResidues() );
 
-/*	_chain->findResidue([](std::shared_ptr<mt::MTResidue> const & r)->bool {
+/*	_chain->findResidue([](mt::MTResidue* const & r)->bool {
 		std::clog << "    residue " << r->name() << r->number() << "  found." << std::endl;
 		return false;
 	}); */
@@ -516,7 +516,7 @@ BOOST_AUTO_TEST_CASE( parse_heteroatom )
 	auto _strx = _parser.parseStructureFromPDBFile(fname);
 	auto _chain = _strx->getChain('A');
 	BOOST_CHECK( bool(_chain) );
-	_chain->findHeterogen([](std::shared_ptr<mt::MTResidue> const & r)->bool {
+	_chain->findHeterogen([](mt::MTResidue* const & r)->bool {
 		std::clog << "    heterogen " << r->name() << r->number() << "  found." << std::endl;
 		return false;
 	});

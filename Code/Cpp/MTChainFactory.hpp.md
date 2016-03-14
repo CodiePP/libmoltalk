@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include <memory>
 #include <functional>
 ~~~
 
@@ -26,7 +25,7 @@ public:
 
  virtual void setFactory(std::function\\<MTChain*(char)\\> const & fn) final { _factory = fn; }
 
- virtual std::shared_ptr\\<MTChain\\> newInstance(char code = 'X') final;
+ virtual MTChain* newInstance(char code = 'X') final;
 
 protected:
 
@@ -41,9 +40,9 @@ public:
 
 ## /* creation */
 
-virtual std::shared_ptr\\<[MTChain](MTChain.hpp)\\> [newChain](MTChainFactory_creation.cpp.md)(char code);
+virtual [MTChain](MTChain.hpp)* [newChain](MTChainFactory_creation.cpp.md)(char code);
 
-virtual std::shared_ptr\\<[MTChain](MTChain.hpp)\\> [createAAChainWithSequence](MTChainFactory_creation.cpp.md)(char code, std::string const & p_seq);
+virtual [MTChain](MTChain.hpp)* [createAAChainWithSequence](MTChainFactory_creation.cpp.md)(char code, std::string const & p_seq);
 
 ## /* ctor, dtor */
 

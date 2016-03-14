@@ -13,7 +13,6 @@
 #include "MTMatrix44.hpp"
 #include "MTCoordinates.hpp"
 
-#include <memory>
 #include <string>
 #include <unordered_map>
 #include <typeinfo>

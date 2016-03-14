@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE( default_factory )
 	mt::MTResidueFactory _factory;
 	auto inst = _factory.newInstance();
 	BOOST_CHECK( bool(inst) );
-	BOOST_CHECK_EQUAL( inst, std::dynamic_pointer_cast<mt::MTResidue>(inst) );
+	//BOOST_CHECK_EQUAL( inst, dynamic_cast<mt::MTResidue>(inst) );
 }
 ~~~
 
@@ -45,8 +45,8 @@ BOOST_AUTO_TEST_CASE( set_own_factory )
 	_factory.setFactory([]()->mt::MTResidue*{ return new MyResidue(); });
 	auto inst = _factory.newInstance();
 	BOOST_CHECK( bool(inst) );
-	BOOST_CHECK_EQUAL( inst, std::dynamic_pointer_cast<MyResidue>(inst) );
-	BOOST_CHECK_EQUAL( inst, std::dynamic_pointer_cast<mt::MTResidue>(inst) );
+	BOOST_CHECK_EQUAL( inst, dynamic_cast<MyResidue*>(inst) );
+	BOOST_CHECK_EQUAL( inst, dynamic_cast<mt::MTResidue*>(inst) );
 }
 ~~~
 

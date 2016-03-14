@@ -26,11 +26,11 @@ public:
 
 ## /* follow backbone connectivity */
 
->// virtual std::shared_ptr\\<MTResidue\\> [nextResidue](MTResidueAA_backbone.cpp.md)() const override; 
+>// virtual [MTResidue](MTResidue.hpp.md)* [nextResidue](MTResidueAA_backbone.cpp.md)() const override; 
 
->// virtual std::shared_ptr\\<MTResidue\\> [prevResidue](MTResidueAA_backbone.cpp.md)() const override; 
+>// virtual [MTResidue](MTResidue.hpp.md)* [prevResidue](MTResidueAA_backbone.cpp.md)() const override; 
 
->// virtual double [distanceCATo](MTResidueAA_backbone.cpp.md)(std::shared_ptr\\<MTResidue\\> const) const override;
+>// virtual double [distanceCATo](MTResidueAA_backbone.cpp.md)(MTResidue* const) const override;
 
 ## /* tests */
 

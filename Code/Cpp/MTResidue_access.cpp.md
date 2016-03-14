@@ -55,7 +55,7 @@ std::string MTResidue::segid() const
 	return _segid;
 }
 
-std::shared_ptr<MTChain> MTResidue::getChain() const
+MTChain* MTResidue::getChain() const
 {
 	return _chain;
 }

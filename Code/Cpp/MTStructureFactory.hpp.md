@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include <memory>
 #include <functional>
 
 /*
@@ -103,11 +102,11 @@ public:
 
 ## /* creation */
 
-virtual std::shared_ptr\\<MTStructure\\> [newStructureFromPDBFile](MTStructureFactory_creation.cpp.md)(std::string const fn, long options = 0L);
+virtual MTStructure* [newStructureFromPDBFile](MTStructureFactory_creation.cpp.md)(std::string const fn, long options = 0L);
 
-virtual std::shared_ptr\\<MTStructure\\> [newStructureFromPDBDirectory](MTStructureFactory_creation.cpp.md)(std::string const code, long options = 0L);
+virtual MTStructure* [newStructureFromPDBDirectory](MTStructureFactory_creation.cpp.md)(std::string const code, long options = 0L);
 
-virtual std::shared_ptr\\<MTStructure\\> [newStructure](MTStructureFactory_creation.cpp.md)();
+virtual MTStructure* [newStructure](MTStructureFactory_creation.cpp.md)();
 
 ## /* ctor, dtor */
 

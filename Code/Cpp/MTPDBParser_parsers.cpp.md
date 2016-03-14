@@ -510,7 +510,7 @@ void MTPDBParser::pimpl::readHetatom(pdbline const & line)
 		_last3prime = nullptr;
 	}
 	/* insert */
-	std::shared_ptr<MTResidue> t_residue;
+	MTResidue* t_residue;
 	if (isSolvent) {
 	 	t_residue = t_chain->getSolvent(resnr, icode); }
 	else {

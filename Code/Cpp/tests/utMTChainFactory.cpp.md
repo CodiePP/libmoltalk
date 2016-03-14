@@ -23,7 +23,7 @@ BOOST_AUTO_TEST_CASE( default_factory )
 	mt::MTChainFactory _factory;
 	auto inst = _factory.newInstance();
 	BOOST_CHECK( bool(inst) );
-	BOOST_CHECK_EQUAL( inst, std::dynamic_pointer_cast<mt::MTChain>(inst) );
+	BOOST_CHECK_EQUAL( inst, dynamic_cast<mt::MTChain*>(inst) );
 }
 ~~~
 
@@ -42,8 +42,8 @@ BOOST_AUTO_TEST_CASE( set_own_factory )
 	_factory.setFactory([](char c)->mt::MTChain*{ return new MyChain(c); });
 	auto inst = _factory.newInstance();
 	BOOST_CHECK( bool(inst) );
-	BOOST_CHECK_EQUAL( inst, std::dynamic_pointer_cast<MyChain>(inst) );
-	BOOST_CHECK_EQUAL( inst, std::dynamic_pointer_cast<mt::MTChain>(inst) );
+	BOOST_CHECK_EQUAL( inst, dynamic_cast<MyChain*>(inst) );
+	BOOST_CHECK_EQUAL( inst, dynamic_cast<mt::MTChain*>(inst) );
 }
 ~~~
 

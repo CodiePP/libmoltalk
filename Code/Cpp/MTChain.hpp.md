@@ -15,7 +15,6 @@
 #include "MTDataKV.hpp"
 
 #include <string>
-#include <memory>
 #include <unordered_map>
 ~~~
 
@@ -31,12 +30,12 @@ protected:
 	friend MTChainFactory;
 
         char _code;
-        std::shared_ptr<MTStructure> _strx;
+        MTStructure* _strx;
         MTDataKV _descriptors;
 
-        std::unordered_map<std::string, std::shared_ptr<MTResidue>> _solvent;
-        std::unordered_map<std::string, std::shared_ptr<MTResidue>> _heterogens;
-        std::unordered_map<std::string, std::shared_ptr<MTResidue>> _residues;
+        std::unordered_map<std::string, MTResidue*> _solvent;
+        std::unordered_map<std::string, MTResidue*> _heterogens;
+        std::unordered_map<std::string, MTResidue*> _residues;
 
 /*        NSMutableDictionary *_residuehash;
         unsigned int _hashingbits;
@@ -67,7 +66,7 @@ public:
 
 ## /* reference to parent structure */
 
->virtual std::shared_ptr\\<MTStructure\\> [structure](MTChain_access.cpp.md)() const;
+>virtual [MTStructure](MTStructure.hpp.md)* [structure](MTChain_access.cpp.md)() const;
 
 
 ## /* utilities */
@@ -105,25 +104,25 @@ public:
 
 ## /* access a residue, heterogen, solvent, respectively, for the given identifying number (eventually, plus an insertion code, single character) */
 
-> virtual std::shared_ptr\\<MTResidue\\> [getResidue](MTChain_get.cpp.md)(unsigned int, char=' ') const;
+> virtual [MTResidue](MTResidue.hpp.md)* [getResidue](MTChain_get.cpp.md)(unsigned int, char=' ') const;
 
-> virtual std::shared_ptr\\<MTResidue\\> [findResidue](MTChain_get.cpp.md)(std::function\\<bool(std::shared_ptr\\<MTResidue\\> const &)\\> const &) const;
+> virtual MTResidue* [findResidue](MTChain_get.cpp.md)(std::function\\<bool(MTResidue* const &)\\> const &) const;
 
-> virtual std::shared_ptr\\<MTResidue\\> [getHeterogen](MTChain_get.cpp.md)(unsigned int, char=' ') const;
+> virtual MTResidue* [getHeterogen](MTChain_get.cpp.md)(unsigned int, char=' ') const;
 
-> virtual std::shared_ptr\\<MTResidue\\> [findHeterogen](MTChain_get.cpp.md)(std::function\\<bool(std::shared_ptr\\<MTResidue\\> const &)\\> const &) const;
+> virtual MTResidue* [findHeterogen](MTChain_get.cpp.md)(std::function\\<bool(MTResidue* const &)\\> const &) const;
 
-> virtual std::shared_ptr\\<MTResidue\\> [getSolvent](MTChain_get.cpp.md)(unsigned int, char=' ') const;
+> virtual MTResidue* [getSolvent](MTChain_get.cpp.md)(unsigned int, char=' ') const;
 
-> virtual std::shared_ptr\\<MTResidue\\> [findSolvent](MTChain_get.cpp.md)(std::function\\<bool(std::shared_ptr\\<MTResidue\\> const &)\\> const &) const;
+> virtual MTResidue* [findSolvent](MTChain_get.cpp.md)(std::function\\<bool(MTResidue* const &)\\> const &) const;
 
 ## /* add a residue, heterogen, solvent, respectively, to this chain */
 
-> virtual void [addResidue](MTChain_add.cpp.md)(std::shared_ptr\\<MTResidue\\>);
+> virtual void [addResidue](MTChain_add.cpp.md)(MTResidue*);
 
-> virtual void [addHeterogen](MTChain_add.cpp.md)(std::shared_ptr\\<MTResidue\\>);
+> virtual void [addHeterogen](MTChain_add.cpp.md)(MTResidue*);
 
-> virtual void [addSolvent](MTChain_add.cpp.md)(std::shared_ptr\\<MTResidue\\>);
+> virtual void [addSolvent](MTChain_add.cpp.md)(MTResidue*);
 
 ## /* remove a residue */
 

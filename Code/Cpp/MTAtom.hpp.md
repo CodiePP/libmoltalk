@@ -10,7 +10,6 @@
 #include "MTCoordinates.hpp"
 
 #include <string>
-#include <memory>
 #include <list>
 #include <functional>
 ~~~

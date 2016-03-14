@@ -259,7 +259,7 @@ BOOST_AUTO_TEST_CASE( get_set_MTResidue )
 	mt::MTResidueFactory _factory;
 	auto _s = _factory.newResidue(42, "XYZ");
 	mt::MTResidue * _g = nullptr;
-	BOOST_CHECK( _kv.set("t1", _s.get()) );
+	BOOST_CHECK( _kv.set("t1", _s) );
 	BOOST_CHECK( _kv.get("t1", _g) );
 	BOOST_CHECK( _g != nullptr );
 	BOOST_CHECK_EQUAL( 42, _g->number() );
@@ -291,7 +291,7 @@ BOOST_AUTO_TEST_CASE( get_set_MTChain )
 	mt::MTChainFactory _factory;
 	auto _s = _factory.newChain(65);
 	mt::MTChain * _g = nullptr;
-	BOOST_CHECK( _kv.set("t1", _s.get()) );
+	BOOST_CHECK( _kv.set("t1", _s) );
 	BOOST_CHECK( _kv.get("t1", _g) );
 	BOOST_CHECK( _g != nullptr );
 	BOOST_CHECK_EQUAL( 65, _g->number() );
@@ -307,7 +307,7 @@ BOOST_AUTO_TEST_CASE( get_set_MTStructure )
 	mt::MTStructureFactory _factory;
 	auto _s = _factory.newStructure();
 	mt::MTStructure * _g = nullptr;
-	BOOST_CHECK( _kv.set("t1", _s.get()) );
+	BOOST_CHECK( _kv.set("t1", _s) );
 	BOOST_CHECK( _kv.get("t1", _g) );
 	BOOST_CHECK( _g != nullptr );
 	std::clog << "utMTDataKV::get_set_MTStructure: " << _g->pdbcode() << std::endl;

@@ -12,7 +12,6 @@
 #include "MTMatrix53.hpp"
 
 #include <string>
-#include <memory>
 #include <list>
 #include <functional>
 
@@ -37,7 +36,7 @@ protected:
 	std::string _description;
         std::list<MTAtom*> _atoms;
         //MTAtom *t_ca;
-        std::shared_ptr<MTChain> _chain;
+        MTChain* _chain;
         bool _verified;
         bool _atomsComplete;
         std::string _modname; // our name as a modified residue
@@ -73,17 +72,17 @@ public:
 
 > virtual std::string [segid](MTResidue_access.cpp.md)() const;
 
-> virtual std::shared_ptr\\<MTChain\\> [getChain](MTResidue_access.cpp.md)() const;
+> virtual MTChain* [getChain](MTResidue_access.cpp.md)() const;
 
 > //-(NSComparisonResult)compare: (id)other;
 
 ## /* follow backbone connectivity */
 
-> virtual std::shared_ptr\\<MTResidue\\> nextResidue() const { return nullptr; }
+> virtual MTResidue* nextResidue() const { return nullptr; }
 
-> virtual std::shared_ptr\\<MTResidue\\> prevResidue() const { return nullptr; }
+> virtual MTResidue* prevResidue() const { return nullptr; }
 
-> virtual double distanceCATo(std::shared_ptr\\<MTResidue\\> const) const { return 0.0; }
+> virtual double distanceCATo(MTResidue* const) const { return 0.0; }
 
 ## /* tests */
 

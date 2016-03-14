@@ -9,7 +9,6 @@
 
 #include "MTModule.hpp"
 
-#include <memory>
 #include <string>
 #include <functional>
 

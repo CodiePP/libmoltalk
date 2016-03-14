@@ -18,7 +18,7 @@ int MTStructure::switchToModel(int p_mnum)
 }
 int MTStructure::addModel()
 {
-	_pimpl->_models.push_back( std::list<std::shared_ptr<MTChain>>() );
+	_pimpl->_models.push_back( std::list<MTChain*>() );
 	_pimpl->_currmodel = ++_pimpl->_nmodels;
 	return _pimpl->_currmodel;
 }

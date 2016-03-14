@@ -18,13 +18,13 @@ struct MTStructure::pimpl {
 	virtual ~pimpl();
 	unsigned int _nmodels { 1 };
 	unsigned int _currmodel { 1 };
-        std::vector< std::list<std::shared_ptr<MTChain>> > _models;
-	std::list<std::shared_ptr<MTChain>> & _chains() { return _models.at(_currmodel-1); }
+        std::vector< std::list<MTChain*> > _models;
+	std::list<MTChain*> & _chains() { return _models.at(_currmodel-1); }
 };
 
 MTStructure::pimpl::pimpl()
 {
-	_models.push_back( std::list<std::shared_ptr<MTChain>>() );
+	_models.push_back( std::list<MTChain*>() );
 }
 
 MTStructure::pimpl::~pimpl()

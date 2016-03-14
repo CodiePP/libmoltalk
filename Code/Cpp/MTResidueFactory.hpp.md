@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include <memory>
 #include <functional>
 
 ~~~
@@ -25,7 +24,7 @@ public:
 
 > virtual void setFactory(std::function\\<MTResidue*()\\> const & fn) final { _factory = fn; }
 
-> virtual std::shared_ptr\\<MTResidue\\> [newInstance](MTResidueFactory_creation.cpp.md)() final;
+> virtual MTResidue* [newInstance](MTResidueFactory_creation.cpp.md)() final;
 
 protected:
 
@@ -40,7 +39,7 @@ public:
 
 ## /* creation */
 
-virtual std::shared_ptr\\<MTResidue\\> [newResidue](MTResidueFactory_creation.cpp.md)(int num, std::string const & name, char subcode = ' ');
+virtual MTResidue* [newResidue](MTResidueFactory_creation.cpp.md)(int num, std::string const & name, char subcode = ' ');
 
 ## /* ctor, dtor */
 

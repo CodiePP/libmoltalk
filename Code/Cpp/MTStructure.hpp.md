@@ -11,9 +11,9 @@
 
 #include <iosfwd>
 #include <string>
-#include <memory>
 #include <unordered_map>
 #include <list>
+#include <memory>
 
 /* 
  *   following the keys for predefined descriptors
@@ -121,17 +121,17 @@ bool [setDescriptor](MTStructure_descriptors.cpp.md)(std::string const &, T cons
 
 ## /* chain access */
 
->virtual std::shared_ptr\\<MTChain\\> [getChain](MTStructure_chains.cpp.md)(int p_chain) const;
+>virtual [MTChain](MTChain.hpp.md)* [getChain](MTStructure_chains.cpp.md)(int p_chain) const;
 
->virtual std::shared_ptr\\<MTChain\\> [getChain](MTStructure_chains.cpp.md)(char p_chain) const;
+>virtual [MTChain](MTChain.hpp.md)* [getChain](MTStructure_chains.cpp.md)(char p_chain) const;
 
->virtual std::shared_ptr\\<MTChain\\> [findChain](MTStructure_chains.cpp.md)(std::function\\<bool(std::shared_ptr\\<MTChain\\> const &)\\> const &) const;
+>virtual [MTChain](MTChain.hpp.md)* [findChain](MTStructure_chains.cpp.md)(std::function\\<bool(MTChain* const &)\\> const &) const;
 
 ## /* manipulations */
 
->virtual void [addChain](MTStructure_chains.cpp.md)(std::shared_ptr\\<MTChain\\>);
+>virtual void [addChain](MTStructure_chains.cpp.md)(MTChain*);
 
->virtual void [removeChain](MTStructure_chains.cpp.md)(std::shared_ptr\\<MTChain\\>);
+>virtual void [removeChain](MTStructure_chains.cpp.md)(MTChain*);
 
 ## /* utilities */
 
