@@ -43,7 +43,7 @@ enter libmoltalk's root and create Makefiles
 
 >dev$ cd ../../
 
->dev$ cmake -D CMAKE_BUILD_TYPE=Debug
+>dev$ cmake -D CMAKE_BUILD_TYPE=Debug .
 
 then, compile and link
 >dev$ make
