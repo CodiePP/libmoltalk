@@ -58,7 +58,7 @@ struct MTPDBParser::pimpl {
 	MTResidueFactory _residuefactory_het;
 
 	long _options;
-        std::shared_ptr<MTStructure> _strx;
+        MTStructure* _strx;
         int _molid { 0 };
 	std::list<std::string> _molid_chains[10];
         std::string _pdbcode;

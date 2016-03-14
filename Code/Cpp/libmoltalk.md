@@ -91,3 +91,12 @@ Dynamically load plugins from DLL
 
 [MTModule](MTModule.hpp.md)
 
+## MTSubstitutionMatrix
+
+Gives the scoring for exchange between two amino acids used in pairwise sequence alignments.
+
+[MTSubstitionMatrixIdentity](MTSubstitutionMatrix.hpp.md)
+[MTSubstitionMatrixBlosum45](MTSubstitutionMatrix.hpp.md)
+[MTSubstitionMatrixBlosum62](MTSubstitutionMatrix.hpp.md)
+[MTSubstitionMatrixBlosum80](MTSubstitutionMatrix.hpp.md)
+

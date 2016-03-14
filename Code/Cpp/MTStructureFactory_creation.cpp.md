@@ -2,11 +2,11 @@
 declared in [MTStructureFactory](MTStructureFactory.hpp.md)
 
 ~~~ { .cpp }
-std::shared_ptr<MTStructure> IStructureFactory::newInstance()
+MTStructure* IStructureFactory::newInstance()
 {
     if (_factory) {
         ++_instance_counter;
-        return std::shared_ptr<MTStructure>(_factory()); }
+        return _factory(); }
     return nullptr;
 }
 ~~~
@@ -14,7 +14,7 @@ std::shared_ptr<MTStructure> IStructureFactory::newInstance()
 ~~~ { .cpp }
 std::shared_ptr<MTStructure> MTStructureFactory::newStructure()
 {
-    return newInstance();
+    return std::shared_ptr<MTStructure>(newInstance());
 }
 ~~~
 
@@ -38,6 +38,14 @@ std::shared_ptr<MTStructure> MTStructureFactory::newStructureFromPDBDirectory(st
 	}
 	d1 = _code.at(1); d2 = _code.at(2);
 	std::string fp = (boost::format("%s/%c%c/pdb%s.ent.gz") % _bp % d1 % d2 % _code).str();
+	return newStructureFromPDBFile(fp);
+
+}
+~~~
+
+~~~ { .cpp }
+std::shared_ptr<MTStructure> MTStructureFactory::newStructureFromPDBFile(std::string const fp, long options)
+{
 	if (boost::filesystem::exists(fp)) {
 		std::clog << "found file " << fp << std::endl;
 	} else {
@@ -52,20 +60,8 @@ std::shared_ptr<MTStructure> MTStructureFactory::newStructureFromPDBDirectory(st
 	std::istream _istr(&_inbuf);
 	
 	MTPDBParser _parser(options);
-	return _parser.parseStructureFromPDBStream(_istr);
+	auto s = _parser.parseStructureFromPDBStream(_istr);
+	return std::shared_ptr<MTStructure>(s);
 }
 ~~~
 
-~~~ { .cpp }
-std::shared_ptr<MTStructure> MTStructureFactory::newStructureFromPDBFile(std::string const p_fn, long options)
-{
-    return newInstance();
-}
-~~~
-
-
-original objc code:
-
-~~~ { .ObjectiveC }
-
-~~~

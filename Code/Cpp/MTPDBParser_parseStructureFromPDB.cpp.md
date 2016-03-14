@@ -3,7 +3,7 @@ declared in [MTPDBParser](MTPDBParser.hpp.md)
 
 ~~~ { .cpp }
 
-std::shared_ptr<MTStructure> MTPDBParser::parseStructureFromPDBStream(std::istream & str)
+MTStructure* MTPDBParser::parseStructureFromPDBStream(std::istream & str)
 {
 	if (! str.good()) {
 		std::cerr << "Error on input stream" << std::endl;
@@ -25,14 +25,17 @@ std::shared_ptr<MTStructure> MTPDBParser::parseStructureFromPDBStream(std::istre
 
 	_pimpl->finish_parsing();
 
-	return std::move(_pimpl->_strx);
+	auto s = _pimpl->_strx;
+	_pimpl->_strx = nullptr;
+
+	return s;
 }
 ~~~
 
 
 ~~~ { .cpp }
 
-std::shared_ptr<MTStructure> MTPDBParser::parseStructureFromPDBFile(std::string const & fn)
+MTStructure* MTPDBParser::parseStructureFromPDBFile(std::string const & fn)
 {
 	if (! boost::filesystem::exists(fn)) {
 		std::cerr << "File " << fn << " cannot be read." << std::endl;
@@ -60,7 +63,10 @@ std::shared_ptr<MTStructure> MTPDBParser::parseStructureFromPDBFile(std::string 
 
 	_pimpl->finish_parsing();
 
-	return std::move(_pimpl->_strx);
+	auto s = _pimpl->_strx;
+	_pimpl->_strx = nullptr;
+
+	return s;
 }
 ~~~
 

@@ -88,7 +88,7 @@ public:
 
  virtual void setFactory(std::function\\<MTStructure*()\\> const & fn) final { _factory = fn; }
 
- virtual std::shared_ptr\\<MTStructure\\> newInstance() final;
+ virtual MTStructure* newInstance() final;
 
 protected:
 
@@ -122,8 +122,8 @@ virtual ~MTStructureFactory() {};
 >//[code trailer](MTStructureFactory_-omega-.md)();
 
 
-```cpp
+~~~ { .cpp }
 };
 
 } // namespace
-```
+~~~
