@@ -71,14 +71,15 @@ BOOST_AUTO_TEST_CASE( manipulate_chains )
 	auto c1 = strx->getChain(65);
 	BOOST_CHECK( ! bool(c1) );
 
-	c1 = new mt::MTChain('A');
-	strx->addChain(c1);
+	auto c2 = new mt::MTChain('A');
+	strx->addChain(c2);
 
 	c1=nullptr;
 	c1 = strx->getChain(65);
 	BOOST_CHECK( bool(c1) );
+	BOOST_CHECK_EQUAL( c1, c2 );
 
-	strx->removeChain(c1);
+	strx->removeChain(c2);
 	c1=nullptr;
 	c1 = strx->getChain(65);
 	BOOST_CHECK( ! bool(c1) );
