@@ -2,6 +2,11 @@
 
 structural bioinformatics algorithms
 
+## CI
+[![Build Status](https://drone.io/github.com/CodiePP/libmoltalk/status.png)](https://drone.io/github.com/CodiePP/libmoltalk/latest)
+
+## Source code
+
 * Browse source code
 [libmoltalk.md](Code/Cpp/libmoltalk.md)
 
