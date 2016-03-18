@@ -39,7 +39,7 @@ void MTResidue::addAtom(MTAtom* a)
 		return ( (a->serial() == atm->serial()) && (a->name() == atm->name()) );
 	});
 	if (it == _atoms.end()) {
-		std::clog << "addAtom '" << a->name() << "' " << a->serial() << std::endl;
+		//std::clog << "addAtom '" << a->name() << "' " << a->serial() << std::endl;
 		_atoms.push_back(a); }
 }
 

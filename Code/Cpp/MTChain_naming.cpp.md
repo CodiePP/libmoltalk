@@ -25,7 +25,7 @@ std::string MTChain::description() const
 	std::string _s;
 	if (getDescriptor("_description", _s)) {
 		return _s; }
-	return "";
+	return "?";
 }
 
 std::string MTChain::fullPDBCode() const

@@ -7,21 +7,21 @@ std::string MTChain::source() const
 	std::string _s;
 	if (getDescriptor("ORGANISM_SCIENTIFIC", _s)) {
 		return _s; }
-	return "";
+	return "?";
 }
 std::string MTChain::compound() const
 {
 	std::string _s;
 	if (getDescriptor("MOLECULE", _s)) {
 		return _s; }
-	return "";
+	return "?";
 }
 std::string MTChain::eccode() const
 {
 	std::string _s;
 	if (getDescriptor("EC", _s)) {
 		return _s; }
-	return "";
+	return "?";
 }
 MTStructure* MTChain::structure() const
 {
