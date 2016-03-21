@@ -29,6 +29,15 @@ MTResidue* MTChain::findResidue(std::function<bool(MTResidue* const &)> const & 
 	return nullptr;
 }
 
+std::list<MTResidue*> MTChain::filterResidues(std::function<bool(MTResidue* const)> const & fn) const
+{
+	std::list<MTResidue*> _l;
+	for (auto const & e : _residues) {
+		if (e.second && fn(e.second)) { _l.push_back(e.second); }
+	}
+	return _l;
+}
+
 MTResidue* MTChain::getHeterogen(unsigned int num, char subcode) const
 {
 	std::string id = MTResidue::computeKey(num, subcode);

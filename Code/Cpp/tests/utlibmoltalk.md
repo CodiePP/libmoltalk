@@ -34,6 +34,8 @@ libmoltalk library.
 
 [utMTPDBParser](utMTPDBParser.cpp.md) for class [MTPDBParser](../MTPDBParser.hpp.md)
 
+[utMTSelection](utMTSelection.cpp.md) for class [MTSelection](../MTSelection.hpp.md)
+
 [utMTModule](utMTModule.cpp.md) for class [MTModule](../MTModule.hpp.md)
 
 

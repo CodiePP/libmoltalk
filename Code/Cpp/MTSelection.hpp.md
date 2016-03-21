@@ -8,6 +8,8 @@
 #pragma once
 
 #include <string>
+#include <list>
+#include <tuple>
 ~~~
 
 namespace [mt](namespace_mt.list) {
@@ -28,19 +30,19 @@ public:
 
 >std::string [toString](MTSelection_access.cpp.md)() const;
 
->std::list<std::tuple<MTResidue*,MTResidue*>> [getSelection](MTSelection_access.cpp.md)() const;
+>std::list\\<std::tuple\\<MTResidue\\*,MTResidue\\*\\>\\> [getSelection](MTSelection_access.cpp.md)() const;
 
 ## /* operations */
 
->bool [containsResidue](MTSelection_operations.cpp.md)(MTResidue *) const;
+>bool [containsResidue](MTSelection_operations.cpp.md)(MTResidue const *) const;
 
 >void [addResidue](MTSelection_operations.cpp.md)(MTResidue *);
 
 >void [removeResidue](MTSelection_operations.cpp.md)(MTResidue *);
 
->void [difference](MTSelection_operations.cpp.md)(MTSelection const *);
+>void [setDifference](MTSelection_operations.cpp.md)(MTSelection const *);
 
->void [union](MTSelection_operations.cpp.md)(MTSelection const *);
+>void [setUnion](MTSelection_operations.cpp.md)(MTSelection const *);
 
 ## /* alignment */
 

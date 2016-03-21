@@ -108,6 +108,8 @@ public:
 
 > virtual MTResidue* [findResidue](MTChain_get.cpp.md)(std::function\\<bool(MTResidue* const &)\\> const &) const;
 
+> virtual std::list\\<MTResidue\\*\\> [filterResidues](MTChain_get.cpp.md)(std::function\\<bool(MTResidue* const)\\> const &) const;
+
 > virtual MTResidue* [getHeterogen](MTChain_get.cpp.md)(unsigned int, char=' ') const;
 
 > virtual MTResidue* [findHeterogen](MTChain_get.cpp.md)(std::function\\<bool(MTResidue* const &)\\> const &) const;

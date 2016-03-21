@@ -91,6 +91,12 @@ Dynamically load plugins from DLL
 
 [MTModule](MTModule.hpp.md)
 
+## MTSelection
+
+Maintain residue selection between two structural chains.
+
+[MTSelection](MTSelection.hpp.md)
+
 ## MTSubstitutionMatrix
 
 Gives the scoring for exchange between two amino acids used in pairwise sequence alignments.
@@ -99,4 +105,12 @@ Gives the scoring for exchange between two amino acids used in pairwise sequence
 [MTSubstitionMatrixBlosum45](MTSubstitutionMatrix.hpp.md)
 [MTSubstitionMatrixBlosum62](MTSubstitutionMatrix.hpp.md)
 [MTSubstitionMatrixBlosum80](MTSubstitutionMatrix.hpp.md)
+
+## MTPairwiseSequenceAlignment
+
+Computes the pairwise sequence alignments between structural chains and/or sequence strings.
+
+[MTAlPos](MTAlPos.hpp.md)
+[MTPairwiseSequenceAlignment](MTPairwiseSequenceAlignment.hpp.md)
+
 
