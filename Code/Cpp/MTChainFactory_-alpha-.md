@@ -2,6 +2,8 @@
 
 #include "MTChainFactory.hpp"
 #include "MTChain.hpp"
+#include "MTResidueFactory.hpp"
+#include "MTResidueAA.hpp"
 
 #include <iostream>
 #include <sstream>

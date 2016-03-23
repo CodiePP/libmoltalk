@@ -24,6 +24,7 @@ libmoltalk library.
 [utMTAtomFactory](utMTAtomFactory.cpp.md) for class [MTAtomFactory](../MTAtomFactory.hpp.md)
 
 [utMTResidue](utMTResidue.cpp.md) for class [MTResidue](../MTResidue.hpp.md)
+[utMTResidueAA](utMTResidueAA.cpp.md) for class [MTResidueAA](../MTResidueAA.hpp.md)
 [utMTResidueFactory](utMTResidueFactory.cpp.md) for class [MTResidueFactory](../MTResidueFactory.hpp.md)
 
 [utMTChain](utMTChain.cpp.md) for class [MTChain](../MTChain.hpp.md)
@@ -37,6 +38,8 @@ libmoltalk library.
 [utMTSelection](utMTSelection.cpp.md) for class [MTSelection](../MTSelection.hpp.md)
 
 [utMTModule](utMTModule.cpp.md) for class [MTModule](../MTModule.hpp.md)
+
+[utMTPairwiseSequenceAlignment](utMTPairwiseSequenceAlignment.cpp.md) for class [MTPairwiseSequenceAlignment](../MTPairwiseSequenceAlignment.hpp.md)
 
 
 ## main entry point

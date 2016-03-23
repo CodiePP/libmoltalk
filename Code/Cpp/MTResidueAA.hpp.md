@@ -57,9 +57,9 @@ public:
 
 ## /* utility */
 
-> //+(std::string)translate3LetterTo1LetterCode: (NSString*)c3letter;
+>static std::string [translate3to1Code](MTResidueAA_utilities.cpp.md) (std::string const &);
 
-> //+(std::string)translate1LetterTo3LetterCode: (NSString*)c1letter;
+>static std::string [translate1to3Code](MTResidueAA_utilities.cpp.md) (std::string const &);
 
 
 ##  /* creation */

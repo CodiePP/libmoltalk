@@ -26,13 +26,29 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		lres = _pimpl->_chain1->filterResidues([](MTResidue* r)->bool { return r->isStandardAminoAcid(); });
 		residues1 = std::vector<MTResidue*>(lres.begin(), lres.end());
 		_pimpl->_seq1 = _pimpl->_chain1->get3DSequence(); }
+	else {
+		MTChainFactory _cf;
+		_pimpl->_chain1 = _cf.createAAChainWithSequence('A', _pimpl->_seq1);
+	}
 	len1 = _pimpl->_seq1.size()+1;
+	if (_pimpl->_chain1->countStandardAminoAcids() != (len1-1)) {
+		std::clog << (boost::format("error in amino acid count - residues1(%d/%d) /= sequence1(%d)!") % _pimpl->_chain1->countStandardAminoAcids() % _pimpl->_chain1->countResidues() % (len1-1)).str() << std::endl;
+		return;
+	}
 
 	if (_pimpl->_chain2) {
 		lres = _pimpl->_chain2->filterResidues([](MTResidue* r)->bool { return r->isStandardAminoAcid(); });
 		residues2 = std::vector<MTResidue*>(lres.begin(), lres.end());
 		_pimpl->_seq2 = _pimpl->_chain2->get3DSequence(); }
-	len2 = _pimpl->_seq2.size()+2;
+	else {
+		MTChainFactory _cf;
+		_pimpl->_chain2 = _cf.createAAChainWithSequence('B', _pimpl->_seq2);
+	}
+	len2 = _pimpl->_seq2.size()+1;
+	if (_pimpl->_chain2->countStandardAminoAcids() != (len2-1)) {
+		std::clog << (boost::format("error in amino acid count - residues2(%d) /= sequence2(%d,'%s')!") % _pimpl->_chain2->countStandardAminoAcids() % (len2-1) % _pimpl->_seq2).str() << std::endl;
+		return;
+	}
 	lres = {};
 
 	scorematrix = (float*)calloc((len1)*(len2),sizeof(float));
@@ -63,9 +79,9 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 	}
 	
 	dir=0; // direction of transition: -1==down, 1==right, 2==diagonal, 0==end of alignment
-	for (col=1; col<len1; col++)
+	for (col=1; col<len1-1; col++)
 	{
-		for (row=1; row<len2; row++)
+		for (row=1; row<len2-1; row++)
 		{
 			score = _pimpl->_substm->scoreBetween(_pimpl->_seq1[col-1], _pimpl->_seq2[row-1]);
 			h1 = scorematrix[(row-1)*len1+(col-1)] + score; // diagonal element
@@ -98,30 +114,27 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 	i=0; 
 	j=(len2-1)*len1; // start of last row
 	score=0.0f;
-	for (col=0; col<len1; col++)
-	{
+	for (col=0; col<len1; col++) {
 		tval = scorematrix[j+col];
-		if (tval > score)
-		{
+		if (tval > score) {
 			score = tval; i = col;
 		}
 	}
 	j=-1;
-	for (row=0; row<len2; row++)
-	{
+	for (row=0; row<len2; row++) {
 		tval = scorematrix[(row+1)*len1-1];  // last col
-		if (tval >= score)
-		{
+		if (tval >= score) {
 			score = tval; j = row; i = -1;
 		}
 	}
-	/* write score matrix to file */
+
 #ifdef VERBOSE_TRACEBACK
+	/* write score matrix to file */
 	if (i < 0)
 	{
-		printf("maximum: %1.1f at row=%d of last col\n",score,j);
+		printf("maximum: %1.1f at row=%d of last col\\n",score,j);
 	} else {
-		printf("maximum: %1.1f at col=%d of last row\n",score,i);
+		printf("maximum: %1.1f at col=%d of last row\\n",score,i);
 	}
 
 	FILE *outfile = fopen("t_scores.csv","w");
@@ -132,7 +145,7 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		{
 			fprintf(outfile,"    %c  ", _pimpl->_seq1[col-1]);
 		}
-		fprintf(outfile,"\n");
+		fprintf(outfile,"\\n");
 		for (row=0; row<len2; row++)
 		{
 			if (row > 0) fprintf(outfile,"%c    ", _pimpl->_seq2[row-1]);
@@ -141,7 +154,7 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 			{
 				fprintf(outfile,"% 6.1f ",scorematrix[row*len1+col]);
 			}
-			fprintf(outfile,"\n");
+			fprintf(outfile,"\\n");
 		}
 		fclose(outfile);
 	}
@@ -153,7 +166,7 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		{
 			fprintf(outfile,"    %c  ", _pimpl->_seq1[col-1]);
 		}
-		fprintf(outfile,"\n");
+		fprintf(outfile,"\\n");
 		for (row=0; row<len2; row++)
 		{
 			if (row > 0) fprintf(outfile,"%c    ", _pimpl->_seq2[row-1]);
@@ -162,7 +175,7 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 			{
 				fprintf(outfile,"% 6.1f ",hinsert[row*len1+col]);
 			}
-			fprintf(outfile,"\n");
+			fprintf(outfile,"\\n");
 		}
 		fclose(outfile);
 	}
@@ -174,7 +187,7 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		{
 			fprintf(outfile,"    %c  ", _pimpl->_seq1[col-1]);
 		}
-		fprintf(outfile,"\n");
+		fprintf(outfile,"\\n");
 		for (row=0; row<len2; row++)
 		{
 			if (row > 0) fprintf(outfile,"%c    ", _pimpl->_seq2[row-1]);
@@ -183,7 +196,7 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 			{
 				fprintf(outfile,"% 6.1f ",vinsert[row*len1+col]);
 			}
-			fprintf(outfile,"\n");
+			fprintf(outfile,"\\n");
 		}
 		fclose(outfile);
 	}
@@ -195,7 +208,7 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		{
 			fprintf(outfile,"  %c ", _pimpl->_seq1[col-1]);
 		}
-		fprintf(outfile,"\n");
+		fprintf(outfile,"\\n");
 		for (row=0; row<len2; row++)
 		{
 			if (row > 0) fprintf(outfile,"%c ", _pimpl->_seq2[row-1]);
@@ -204,7 +217,7 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 			{
 				fprintf(outfile,"% 3d ",tbmatrix[row*len1+col]);
 			}
-			fprintf(outfile,"\n");
+			fprintf(outfile,"\\n");
 		}
 		fclose(outfile);
 	}
@@ -217,9 +230,9 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 	{
 		for (dir = len1-1; dir > i; dir--)
 		{
-			_pimpl->_positions.push_back( MTAlPos(residues1[(dir-1)], nullptr) );
+			//_pimpl->_positions.push_back( MTAlPos(residues1[(dir-1)], nullptr) );
 #ifdef VERBOSE_TRACEBACK
-			printf("%c  -\n",_pimpl->_seq1[dir-1]);
+			printf("%c  -\\n",_pimpl->_seq1[dir-1]);
 #endif
 		}
 		j = len2-1;
@@ -227,9 +240,9 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		for (dir = len2-1; dir > j; dir--)
 		{
 			
-			_pimpl->_positions.push_back( MTAlPos( nullptr,  residues2[(dir-1)]) );
+			//_pimpl->_positions.push_back( MTAlPos( nullptr,  residues2[(dir-1)]) );
 #ifdef VERBOSE_TRACEBACK
-			printf("-  %c  %1.1f\n",_pimpl->_seq2[dir-1]);
+			printf("-  %c  %1.1f\\n",_pimpl->_seq2[dir-1]);
 #endif
 		}
 		i = len1-1;
@@ -243,22 +256,22 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		if (dir == 2)
 		{
 #ifdef VERBOSE_TRACEBACK
-			printf("%c  %c  %1.1f\n",_pimpl->_seq1[i-1],_pimpl->_seq2[j-1],score);
+			printf("%c  %c  %1.1f\\n",_pimpl->_seq1[i-1],_pimpl->_seq2[j-1],score);
 #endif
-			_pimpl->_positions.push_back(MTAlPos(residues1[(i-1)], residues2[(j-1)]));
+			//_pimpl->_positions.push_back(MTAlPos(residues1[(i-1)], residues2[(j-1)]));
 		} else if (dir == -1) { // gap in seq1 
 #ifdef VERBOSE_TRACEBACK
-			printf("-  %c\n",_pimpl->_seq2[j-1]);
+			printf("-  %c\\n",_pimpl->_seq2[j-1]);
 #endif
-			_pimpl->_positions.push_back(MTAlPos(nullptr, residues2[(j-1)]));
+			//_pimpl->_positions.push_back(MTAlPos(nullptr, residues2[(j-1)]));
 		} else if (dir == 1) { // gap in seq2 
 #ifdef VERBOSE_TRACEBACK
-			printf("%c  -\n",_pimpl->_seq1[i-1]);
+			printf("%c  -\\n",_pimpl->_seq1[i-1]);
 #endif
-			_pimpl->_positions.push_back(MTAlPos(residues1[(i-1)], nullptr));
+			//_pimpl->_positions.push_back(MTAlPos(residues1[(i-1)], nullptr));
 		} else {
 #ifdef VERBOSE_TRACEBACK
-			printf("?  ?  %1.1f\n",score);
+			printf("?  ?  %1.1f\\n",score);
 #endif
 		}
 		dir = tbmatrix[j*len1+i];
@@ -270,7 +283,7 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		} else if (dir == 1) {
 			i--;
 		} else {
-			printf("error in traceback at i=%d, j=%d\n",i,j);
+			printf("error in traceback at i=%d, j=%d\\n",i,j);
 			j--; i--;
 		}
 	}
@@ -279,7 +292,7 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		i--;
 #ifdef VERBOSE_TRACEBACK
 		score = scorematrix[i];
-		printf("%c  - \n",_pimpl->_seq1[i-1]);
+		printf("%c  - \\n",_pimpl->_seq1[i-1]);
 #endif
 		_pimpl->_positions.push_back(MTAlPos(residues1[(i-1)], nullptr));
 	}
@@ -288,7 +301,7 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		j--;
 #ifdef VERBOSE_TRACEBACK
 		score = scorematrix[j*len1];
-		printf("-  %c\n",_pimpl->_seq2[j-1]);
+		printf("-  %c\\n",_pimpl->_seq2[j-1]);
 #endif
 		_pimpl->_positions.push_back(MTAlPos(nullptr, residues2[(j-1)]));
 	}
@@ -300,6 +313,9 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 
 	_pimpl->_computed = true;
 }
+
+#undef VERBOSE_TRACEBACK
+
 ~~~
 
 original objc code:

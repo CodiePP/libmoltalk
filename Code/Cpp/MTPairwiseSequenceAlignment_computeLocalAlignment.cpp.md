@@ -2,9 +2,216 @@
 declared in [MTPairwiseSequenceAlignment](MTPairwiseSequenceAlignment.hpp.md)
 
 ~~~ { .cpp }
+
+#define VERBOSE_TRACEBACK
+
 void MTPairwiseSequenceAlignment::computeLocalAlignment()
 {
+	float f_gop = _pimpl->_gop;
+	float f_gep = _pimpl->_gep;
+	int maxrow, maxcol;
+	float maxscore;
+	float *scorematrix;
+	float *hinsert, *vinsert;
+	int *tbmatrix;
+	int len1, len2;
+	int row,col,i,j,dir;
+	float score, h1,h2,h3,tval;
+	std::list<MTResidue*> lres;
+	std::vector<MTResidue*> residues1;
+	std::vector<MTResidue*> residues2;
+
+	_pimpl->_positions = {};
+
+	/* prepare sequence 1 and 2 */
+	if (_pimpl->_chain1) {
+		lres = _pimpl->_chain1->filterResidues([](MTResidue* r)->bool { return r->isStandardAminoAcid(); });
+		residues1 = std::vector<MTResidue*>(lres.begin(), lres.end());
+		_pimpl->_seq1 = _pimpl->_chain1->get3DSequence(); }
+	len1 = _pimpl->_seq1.size()+1;
+
+	if (_pimpl->_chain2) {
+		lres = _pimpl->_chain2->filterResidues([](MTResidue* r)->bool { return r->isStandardAminoAcid(); });
+		residues2 = std::vector<MTResidue*>(lres.begin(), lres.end());
+		_pimpl->_seq2 = _pimpl->_chain2->get3DSequence(); }
+	len2 = _pimpl->_seq2.size()+2;
+	lres = {};
+
+	scorematrix = (float*)calloc((len1)*(len2),sizeof(float));
+	vinsert = (float*)calloc((len1)*(len2),sizeof(float));
+	hinsert = (float*)calloc((len1)*(len2),sizeof(float));
+	tbmatrix = (int*)calloc((len1)*(len2),sizeof(int));	
+	
+	if (! (scorematrix && vinsert && hinsert && tbmatrix))
+	{
+		std::clog << "failed to allocate scoring matrix." << std::endl;
+		return;
+	}
+
+	/* prepare scoring matrix */
+	dir = 0;
+	for (row=0; row<len2; row++)
+	{
+		for (col=0; col<len1; col++)
+		{
+			scorematrix[dir] = 0.0f;
+			vinsert[dir] = 0.0f;
+			hinsert[dir] = 0.0f;
+			tbmatrix[dir] = 0;
+			dir++;
+		}
+	}
+	maxrow=0; maxcol=0; // will hold row/col of highest value in matrix
+	maxscore=0.0f; // maximum score
+	dir=0; // direction of transition: -1==down, 1==right, 2==diagonal, 0==end of alignment
+	for (col=1; col<len1-1; col++)
+	{
+		for (row=1; row<len2-1; row++)
+		{
+			h1=0.0f;h2=0.0f;h3=0.0f;
+			score = _pimpl->_substm->scoreBetween(_pimpl->_seq1[col-1], _pimpl->_seq2[row-1]);
+			//printf("%@ - %@ d:%2.2f h1=%2.2f\n",here,there,dist,h1);
+			h1 = scorematrix[(row-1)*len1+(col-1)] + score; // diagonal element
+			h2 = hinsert[(row-1)*len1+(col-1)] + score; // end of gap horizontal
+			h3 = vinsert[(row-1)*len1+(col-1)] + score; // end of gap vertical
+			score = h1;
+			dir = 0;
+			if (h3>score) {
+				score = h3;
+				dir = -1; // vertical
+			}
+			if (h2>score) {
+				score = h2;
+				dir = 1; // horizontal
+			}
+			if (h1>=score) { // overwrite in case of same value
+				score = h1;
+				dir = 2;
+			}
+			scorematrix[(row)*len1+(col)] = score; // save maximum value in matrix
+			tbmatrix[(row)*len1+(col)] = dir; // save traceback direction
+			
+			// update maximum row/col
+			if (score >= maxscore)
+			{
+				maxscore = score;
+				maxrow = row; maxcol = col;
+			}
+
+			// update insertion matrices
+			score = scorematrix[(row)*len1+(col-1)] - f_gop;
+			tval = hinsert[(row)*len1+(col-1)] - f_gep;
+			hinsert[(row)*len1+(col)] = (score>tval?score:tval);
+			score = scorematrix[(row-1)*len1+(col)] - f_gop;
+			tval = vinsert[(row-1)*len1+(col)] - f_gep;
+			vinsert[(row)*len1+(col)] = (score>tval?score:tval);
+		} // all rows
+	} // all columns
+
+#ifdef VERBOSE_TRACEBACK
+	/* write score matrix to file */
+	printf("maximum: %1.1f at i=%d j=%d\\n",maxscore,maxcol,maxrow);
+	FILE *outfile = fopen("t_scores.csv","w");
+	if (outfile)
+	{
+		fprintf(outfile,".    ");
+		for (col=1; col<len1; col++)
+		{
+			fprintf(outfile,"   %c  ",_pimpl->_seq1[col-1]);
+		}
+		fprintf(outfile,"\\n");
+		for (row=0; row<len2; row++)
+		{
+			if (row > 0) fprintf(outfile,"%c ",_pimpl->_seq2[row-1]);
+			else fprintf(outfile,"   ");
+			for (col=0; col<len1; col++)
+			{
+				fprintf(outfile,"% 3.1f ",scorematrix[row*len1+col]);
+			}
+			fprintf(outfile,"\\n");
+		}
+		fclose(outfile);
+	}
+	outfile = fopen("t_tb.csv","w");
+	if (outfile)
+	{
+		fprintf(outfile,".     ");
+		for (col=1; col<len1; col++)
+		{
+			fprintf(outfile,"  %c ",_pimpl->_seq1[col-1]);
+		}
+		fprintf(outfile,"\\n");
+		for (row=0; row<len2; row++)
+		{
+			if (row > 0) fprintf(outfile,"%c ",_pimpl->_seq2[row-1]);
+			else fprintf(outfile,"  ");
+			for (col=0; col<len1; col++)
+			{
+				fprintf(outfile,"% 3d ",tbmatrix[row*len1+col]);
+			}
+			fprintf(outfile,"\\n");
+		}
+		fclose(outfile);
+	}
+#endif /* VERBOSE_TRACEBACK */
+
+/*  T R A C E B A C K  */
+
+	i=maxcol; j=maxrow;
+	score = scorematrix[j*len1+i];
+	dir = 2;
+	while (score > 0)
+	{
+		if (dir == 2)
+		{
+#ifdef VERBOSE_TRACEBACK
+			printf("%c  %c  %1.1f\\n",_pimpl->_seq1[i-1],_pimpl->_seq2[j-1],score);
+#endif
+			//alpos = [MTAlPos alposWithRes1: [residues1 objectAtIndex: (i-1)] res2: [residues2 objectAtIndex: (j-1)]];
+		} else if (dir == -1) { // gap in seq1 
+#ifdef VERBOSE_TRACEBACK
+			printf("-  %c\\n",_pimpl->_seq2[j-1]);
+#endif
+			//alpos = [MTAlPos alposWithRes1: nil res2: [residues2 objectAtIndex: (j-1)]];
+		} else if (dir == 1) { // gap in seq2 
+#ifdef VERBOSE_TRACEBACK
+			printf("%c  -\\n",_pimpl->_seq1[i-1]);
+#endif
+			//alpos = [MTAlPos alposWithRes1: [residues1 objectAtIndex: (i-1)] res2: nil];
+		} else {
+#ifdef VERBOSE_TRACEBACK
+			printf("?  ?  %1.1f\\n",score);
+#endif
+			//alpos = nil;
+		}
+//		if (alpos)
+//		{
+//			//_pimpl->_positions.push_back(alpos);
+//		}
+		dir = tbmatrix[j*len1+i];
+		if (dir == 2)
+		{
+			j--; i--;
+		} else if (dir == -1) {
+			j--;
+		} else if (dir == 1) {
+			i--;
+		} else {
+			printf("error in traceback at i=%d, j=%d\\n",i,j);
+			j--; i--;
+		}
+		score = scorematrix[j*len1+i];
+	}
+
+	free (hinsert);
+	free (vinsert);
+	free (scorematrix);
+	free (tbmatrix);
+
+	_pimpl->_computed = true;
 }
+
+#undef VERBOSE_TRACEBACK
 ~~~
 
 original objc code:
@@ -107,7 +314,7 @@ original objc code:
 		{
 			h1=0.0f;h2=0.0f;h3=0.0f;
 			score = [substitutionMatrix exchangeScoreBetween: seq1[col-1] and: seq2[row-1] ];
-			//printf("%@ - %@ d:%2.2f h1=%2.2f\n",here,there,dist,h1);
+			//printf("%@ - %@ d:%2.2f h1=%2.2f\\n",here,there,dist,h1);
 			h1 = scorematrix[(row-1)*len1+(col-1)] + score; // diagonal element
 			h2 = hinsert[(row-1)*len1+(col-1)] + score; // end of gap horizontal
 			h3 = vinsert[(row-1)*len1+(col-1)] + score; // end of gap vertical

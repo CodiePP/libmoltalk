@@ -9,7 +9,8 @@ int MTChain::countResidues() const
 
 int MTChain::countStandardAminoAcids() const
 {
-	return 0;
+	auto rs = filterResidues([](MTResidue *r)->bool{ r->isStandardAminoAcid(); });
+	return rs.size();
 }
 
 int MTChain::countHeterogens() const

@@ -8,6 +8,7 @@ declared in [MTPairwiseSequenceAlignment](MTPairwiseSequenceAlignment.hpp.md)
 #include "MTAlPos.hpp"
 #include "MTResidue.hpp"
 #include "MTChain.hpp"
+#include "MTChainFactory.hpp"
 
 #include <iostream>
 #include <cstring>

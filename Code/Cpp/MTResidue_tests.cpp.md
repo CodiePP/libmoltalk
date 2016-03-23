@@ -5,6 +5,8 @@ declared in [MTResidue](MTResidue.hpp.md)
 
 bool MTResidue::isStandardAminoAcid() const
 {
+	const std::string c1(MTResidueAA::translate3to1Code(name()));
+	if (!c1.empty()) { return true; }
 	return false;
 }
 
