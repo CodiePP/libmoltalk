@@ -1,3 +1,4 @@
+// ![UML diagram](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/CodiePP/libmoltalk/master/doc/UML/mtmatrixinterface.uml)
 ~~~ { .cpp }
 /*
  *  Copyright 2016 by Alexander Diemand
