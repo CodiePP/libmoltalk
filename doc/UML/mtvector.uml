@@ -1,0 +1,22 @@
+@startuml
+
+class MTVector {
+
+dimensions() -> int
+toString() -> string
+atDim(int) -> double
+atDim(int,double)
+length() -> int
+__operations__
+differenceTo(MTVector) -> MTVector
+euklideanDistanceTo(MTVector) -> double
+normalize() -> MTVector&
+scaleByScalar(double) -> MTVector&
+angleBetween(MTVector) -> double
+scalarProductBy(MTVector) -> double
+vectorProductBy(MTVector) -> MTVector
+mixedProductBy(MTVector,MTVector) -> double
+
+}
+
+@enduml

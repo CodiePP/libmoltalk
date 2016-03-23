@@ -1,0 +1,21 @@
+@startuml
+
+interface MTMatrixInterface {
+
+isTransposed() -> bool
+rows() -> int
+cols() -> int
+toString() -> string
+
+__getters/setters___
+atRowCol(int,int) -> double
+atRowColValue(int,int,double)
+
+__operations__
+transpose()
+addScalar(double)
+multiplyByScalar(double)
+
+}
+
+@enduml
