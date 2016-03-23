@@ -13,7 +13,7 @@
 
 namespace [mt](namespace_mt.list) {
 
-# class MTResidueAA : public [MTResidue](MTResidue.hpp)
+# class MTResidueAA : public [MTResidue](MTResidue.hpp.md)
 
 ~~~ { .cpp }
 {
@@ -72,9 +72,9 @@ public:
 
 ## /* brewery */
 
->//[code header](MTResidueAA_-alpha-)();
+>//[code header](MTResidueAA_-alpha-.md)();
 
->//[code trailer](MTResidueAA_-omega-)();
+>//[code trailer](MTResidueAA_-omega-.md)();
 
 
 ~~~ { .cpp }

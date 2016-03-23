@@ -42,7 +42,7 @@ public:
 
 >virtual [~MTMatrix53](MTMatrix53_dtor.cpp.md)();
 
->static MTMatrix53 [transformation3By3](MTMatrix53_transformation3By3.cpp.md)([MTMatrix](MTMatrix.hpp) const & first, [MTMatrix](MTMatrix.hpp) const & second);
+>static MTMatrix53 [transformation3By3](MTMatrix53_transformation3By3.cpp.md)([MTMatrix](MTMatrix.hpp.md) const & first, [MTMatrix](MTMatrix.hpp.md) const & second);
 
 >static MTMatrix53 [withRotation](MTMatrix53_withRotation.cpp.md)([MTMatrix44](MTMatrix44.hpp.md) const & rot, [MTCoordinates](MTCoordinates.hpp.md) const & origin, [MTCoordinates](MTCoordinates.hpp.md) const & translation);
 

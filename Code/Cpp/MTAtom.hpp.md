@@ -18,7 +18,7 @@ namespace [mt](namespace_mt.list) {
 
 # class MTAtom 
 
->//: public [MTCoordinates](MTCoordinates.hpp)
+>//: public [MTCoordinates](MTCoordinates.hpp.md)
 
 ~~~ { .cpp }
 {

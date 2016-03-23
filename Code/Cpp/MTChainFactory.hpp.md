@@ -40,9 +40,9 @@ public:
 
 ## /* creation */
 
-virtual [MTChain](MTChain.hpp)* [newChain](MTChainFactory_creation.cpp.md)(char code);
+virtual [MTChain](MTChain.hpp.md)* [newChain](MTChainFactory_creation.cpp.md)(char code);
 
-virtual [MTChain](MTChain.hpp)* [createAAChainWithSequence](MTChainFactory_creation.cpp.md)(char code, std::string const & p_seq);
+virtual [MTChain](MTChain.hpp.md)* [createAAChainWithSequence](MTChainFactory_creation.cpp.md)(char code, std::string const & p_seq);
 
 ## /* ctor, dtor */
 

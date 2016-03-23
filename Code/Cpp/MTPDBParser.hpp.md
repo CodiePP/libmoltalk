@@ -56,11 +56,11 @@ public:
 
 ## /* reads and initializes a parser from a file in PDB format returns the structure */
 
->[MTStructure](MTStructure.hpp)* [parseStructurePtrFromPDBFile](MTPDBParser_parseStructureFromPDB.cpp.md)(std::string const & fn);
+>[MTStructure](MTStructure.hpp.md)* [parseStructurePtrFromPDBFile](MTPDBParser_parseStructureFromPDB.cpp.md)(std::string const & fn);
 
->[MTStructure](MTStructure.hpp)* [parseStructureFromPDBFile](MTPDBParser_parseStructureFromPDB.cpp.md)(std::string const & fn);
+>[MTStructure](MTStructure.hpp.md)* [parseStructureFromPDBFile](MTPDBParser_parseStructureFromPDB.cpp.md)(std::string const & fn);
 
->[MTStructure](MTStructure.hpp)* [parseStructureFromPDBStream](MTPDBParser_parseStructureFromPDB.cpp.md)(std::istream & s);
+>[MTStructure](MTStructure.hpp.md)* [parseStructureFromPDBStream](MTPDBParser_parseStructureFromPDB.cpp.md)(std::istream & s);
 
 ## /* brewery */
 
