@@ -20,7 +20,7 @@ namespace [mt](namespace_mt.list) {
 public:
 ~~~
 
->// virtual std::string [oneLetterCode](MTResidueAA_access.cpp.md)() const override;
+>virtual std::string [oneLetterCode](MTResidueAA_access.cpp.md)() const override;
 
 >// virtual int [sequenceNumber](MTResidueAA_access.cpp.md)() const override;
 

@@ -15,7 +15,20 @@ const MTChain* MTPairwiseSequenceAlignment::chain2() const
 
 std::string MTPairwiseSequenceAlignment::toString() const
 {
-	return "";
+	std::string s;
+	MTResidue *r1, *r2;
+	for (auto const & p : _pimpl->_positions) {
+		r1 = p.residue1();
+		r2 = p.residue2();
+		if (r1) { s += r1->oneLetterCode(); }
+		else    { s += "-"; }
+		s += " ";
+		if (r2) { s += r2->oneLetterCode(); }
+		else    { s += "-"; }
+		s += "\\n";
+	}
+
+	return s;
 }
 
 std::string MTPairwiseSequenceAlignment::toFasta() const
