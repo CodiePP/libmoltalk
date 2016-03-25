@@ -3,7 +3,7 @@ declared in [MTPairwiseSequenceAlignment](MTPairwiseSequenceAlignment.hpp.md)
 
 ~~~ { .cpp }
 
-#define VERBOSE_TRACEBACK
+#undef VERBOSE_TRACEBACK
 
 void MTPairwiseSequenceAlignment::computeLocalAlignment()
 {
@@ -31,6 +31,9 @@ void MTPairwiseSequenceAlignment::computeLocalAlignment()
 		_pimpl->_chain1 = _cf.createAAChainWithSequence('A', _pimpl->_seq1);
 	}
 	lres = _pimpl->_chain1->filterResidues([](MTResidue* r)->bool { return r->isStandardAminoAcid(); });
+        lres.sort([](MTResidue *r1, MTResidue *r2)->bool {
+            return r1->number() < r2->number();
+          });
 	residues1 = std::vector<MTResidue*>(lres.begin(), lres.end());
 	i = 0;
 	for (auto r : residues1) {
@@ -44,6 +47,9 @@ void MTPairwiseSequenceAlignment::computeLocalAlignment()
 		_pimpl->_chain2 = _cf.createAAChainWithSequence('B', _pimpl->_seq2);
 	}
 	lres = _pimpl->_chain2->filterResidues([](MTResidue* r)->bool { return r->isStandardAminoAcid(); });
+        lres.sort([](MTResidue *r1, MTResidue *r2)->bool {
+            return r1->number() < r2->number();
+          });
 	residues2 = std::vector<MTResidue*>(lres.begin(), lres.end());
 	i = 0;
 	for (auto r : residues2) {
