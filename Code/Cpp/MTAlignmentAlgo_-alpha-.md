@@ -1,11 +1,10 @@
 
-declared in [MTPairwiseSequenceAlignment](MTPairwiseSequenceAlignment.hpp.md)
+declared in [MTAlignmentAlgo](MTAlignmentAlgo.hpp.md)
 
 ~~~ { .cpp }
 
-#include "MTPairwiseSequenceAlignment.hpp"
+#include "MTAlignmentAlgo.hpp"
 #include "MTSubstitutionMatrix.hpp"
-#include "MTAlPos.hpp"
 #include "MTResidue.hpp"
 #include "MTChain.hpp"
 #include "MTChainFactory.hpp"
@@ -16,5 +15,8 @@ declared in [MTPairwiseSequenceAlignment](MTPairwiseSequenceAlignment.hpp.md)
 #include "boost/format.hpp"
 
 namespace mt {
+
+#define GAPOPENINGPENALTY 10.0f 
+#define GAPEXTENDPENALTY 1.0f
 
 ~~~

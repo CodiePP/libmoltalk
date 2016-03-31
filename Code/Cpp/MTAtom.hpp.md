@@ -18,8 +18,6 @@ namespace [mt](namespace_mt.list) {
 
 # class MTAtom 
 
->//: public [MTCoordinates](MTCoordinates.hpp.md)
-
 ~~~ { .cpp }
 {
 public:
@@ -132,7 +130,7 @@ public:
 
 >virtual std::string [elementName](MTAtom_getters.cpp.md)() const;
 
->virtual MTCoordinates [coords](MTAtom_getters.cpp.md)() const;
+>virtual [MTCoordinates](MTCoordinates.hpp.md) [coords](MTAtom_getters.cpp.md)() const;
 
 ## /* bonding */
 

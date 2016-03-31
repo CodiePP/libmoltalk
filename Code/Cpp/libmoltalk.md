@@ -111,6 +111,7 @@ Gives the scoring for exchange between two amino acids used in pairwise sequence
 Computes the pairwise sequence alignments between structural chains and/or sequence strings.
 
 [MTAlPos](MTAlPos.hpp.md)
+[MTAlignmentAlgo](MTAlignmentAlgo.hpp.md)
 [MTPairwiseSequenceAlignment](MTPairwiseSequenceAlignment.hpp.md)
 
 

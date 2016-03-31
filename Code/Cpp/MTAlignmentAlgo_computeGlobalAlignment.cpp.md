@@ -1,61 +1,34 @@
 
-declared in [MTPairwiseSequenceAlignment](MTPairwiseSequenceAlignment.hpp.md)
+declared in [MTAlignmentAlgo](MTAlignmentAlgo.hpp.md)
 
 ~~~ { .cpp }
 
 #undef VERBOSE_TRACEBACK
 
-void MTPairwiseSequenceAlignment::computeGlobalAlignment()
+void MTAlignmentAlgo::computeGlobalAlignment()
 {
-	float f_gop = _pimpl->_gop;
-	float f_gep = _pimpl->_gep;
+	float f_gop = _gop;
+	float f_gep = _gep;
 	float *scorematrix;
 	float *hinsert, *vinsert;
 	int *tbmatrix;
 	int len1, len2;
 	int row,col,i,j,dir;
 	float score, h1,h2,h3,tval;
-	std::list<MTResidue*> lres;
-	std::vector<MTResidue*> residues1;
-	std::vector<MTResidue*> residues2;
 
-	_pimpl->_positions = {};
+	_positions = {};
 
-	/* prepare sequence 1 and 2 */
-	if (_pimpl->_chain1) {
-		_pimpl->_seq1 = _pimpl->_chain1->get3DSequence(); }
-	else {
-		MTChainFactory _cf;
-		_pimpl->_chain1 = _cf.createAAChainWithSequence('A', _pimpl->_seq1);
-	}
-        lres = _pimpl->_chain1->filterResidues([](MTResidue* r)->bool { return r->isStandardAminoAcid(); });
-        lres.sort([](MTResidue *r1, MTResidue *r2)->bool {
-            return r1->number() < r2->number();
-          });
-        residues1 = std::vector<MTResidue*>(lres.begin(), lres.end());
-	len1 = _pimpl->_seq1.size()+1;
-	if (_pimpl->_chain1->countStandardAminoAcids() != (len1-1)) {
-		std::clog << (boost::format("error in amino acid count - residues1(%d/%d) /= sequence1(%d)!") % _pimpl->_chain1->countStandardAminoAcids() % _pimpl->_chain1->countResidues() % (len1-1)).str() << std::endl;
+	len1 = _seq1.size()+1;
+	if (_chain1->countStandardAminoAcids() != (len1-1)) {
+		std::clog << (boost::format("error in amino acid count - _residues1(%d/%d) /= sequence1(%d)!") % _chain1->countStandardAminoAcids() % _chain1->countResidues() % (len1-1)).str() << std::endl;
 		return;
 	}
 
-	if (_pimpl->_chain2) {
-		_pimpl->_seq2 = _pimpl->_chain2->get3DSequence(); }
-	else {
-		MTChainFactory _cf;
-		_pimpl->_chain2 = _cf.createAAChainWithSequence('B', _pimpl->_seq2);
-	}
-        lres = _pimpl->_chain2->filterResidues([](MTResidue* r)->bool { return r->isStandardAminoAcid(); });
-        lres.sort([](MTResidue *r1, MTResidue *r2)->bool {
-            return r1->number() < r2->number();
-          });
-	residues2 = std::vector<MTResidue*>(lres.begin(), lres.end());
-	len2 = _pimpl->_seq2.size()+1;
-	if (_pimpl->_chain2->countStandardAminoAcids() != (len2-1)) {
-		std::clog << (boost::format("error in amino acid count - residues2(%d) /= sequence2(%d,'%s')!") % _pimpl->_chain2->countStandardAminoAcids() % (len2-1) % _pimpl->_seq2).str() << std::endl;
+	len2 = _seq2.size()+1;
+	if (_chain2->countStandardAminoAcids() != (len2-1)) {
+		std::clog << (boost::format("error in amino acid count - _residues2(%d) /= sequence2(%d,'%s')!") % _chain2->countStandardAminoAcids() % (len2-1) % _seq2).str() << std::endl;
 		return;
 	}
-	lres = {};
 
 	scorematrix = (float*)calloc((len1)*(len2),sizeof(float));
 	vinsert = (float*)calloc((len1)*(len2),sizeof(float));
@@ -88,7 +61,7 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 	{
 		for (row=1; row<len2; row++)
 		{
-			score = _pimpl->_substm->scoreBetween(_pimpl->_seq1[col-1], _pimpl->_seq2[row-1]);
+			score = _substm->scoreBetween(_seq1[col-1], _seq2[row-1]);
 			h1 = scorematrix[(row-1)*len1+(col-1)] + score; // diagonal element
 			h2 = hinsert[(row-1)*len1+(col-1)] + score; // end of gap horizontal
 			h3 = vinsert[(row-1)*len1+(col-1)] + score; // end of gap vertical
@@ -148,12 +121,12 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		fprintf(outfile,".           ");
 		for (col=1; col<len1; col++)
 		{
-			fprintf(outfile,"    %c  ", _pimpl->_seq1[col-1]);
+			fprintf(outfile,"    %c  ", _seq1[col-1]);
 		}
 		fprintf(outfile,"\\n");
 		for (row=0; row<len2; row++)
 		{
-			if (row > 0) fprintf(outfile,"%c    ", _pimpl->_seq2[row-1]);
+			if (row > 0) fprintf(outfile,"%c    ", _seq2[row-1]);
 			else fprintf(outfile,"     ");
 			for (col=0; col<len1; col++)
 			{
@@ -169,12 +142,12 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		fprintf(outfile,".           ");
 		for (col=1; col<len1; col++)
 		{
-			fprintf(outfile,"    %c  ", _pimpl->_seq1[col-1]);
+			fprintf(outfile,"    %c  ", _seq1[col-1]);
 		}
 		fprintf(outfile,"\\n");
 		for (row=0; row<len2; row++)
 		{
-			if (row > 0) fprintf(outfile,"%c    ", _pimpl->_seq2[row-1]);
+			if (row > 0) fprintf(outfile,"%c    ", _seq2[row-1]);
 			else fprintf(outfile,"     ");
 			for (col=0; col<len1; col++)
 			{
@@ -190,12 +163,12 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		fprintf(outfile,".           ");
 		for (col=1; col<len1; col++)
 		{
-			fprintf(outfile,"    %c  ", _pimpl->_seq1[col-1]);
+			fprintf(outfile,"    %c  ", _seq1[col-1]);
 		}
 		fprintf(outfile,"\\n");
 		for (row=0; row<len2; row++)
 		{
-			if (row > 0) fprintf(outfile,"%c    ", _pimpl->_seq2[row-1]);
+			if (row > 0) fprintf(outfile,"%c    ", _seq2[row-1]);
 			else fprintf(outfile,"     ");
 			for (col=0; col<len1; col++)
 			{
@@ -211,12 +184,12 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		fprintf(outfile,".     ");
 		for (col=1; col<len1; col++)
 		{
-			fprintf(outfile,"  %c ", _pimpl->_seq1[col-1]);
+			fprintf(outfile,"  %c ", _seq1[col-1]);
 		}
 		fprintf(outfile,"\\n");
 		for (row=0; row<len2; row++)
 		{
-			if (row > 0) fprintf(outfile,"%c ", _pimpl->_seq2[row-1]);
+			if (row > 0) fprintf(outfile,"%c ", _seq2[row-1]);
 			else fprintf(outfile,"  ");
 			for (col=0; col<len1; col++)
 			{
@@ -235,9 +208,9 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 	{
 		for (dir = len1-1; dir > i; dir--)
 		{
-			_pimpl->_positions.push_back( MTAlPos(residues1[(dir-1)], nullptr) );
+			_positions.push_back( MTAlPos(_residues1[(dir-1)], nullptr) );
 #ifdef VERBOSE_TRACEBACK
-			printf("%c  -\\n",_pimpl->_seq1[dir-1]);
+			printf("%c  -\\n",_seq1[dir-1]);
 #endif
 		}
 		j = len2-1;
@@ -245,9 +218,9 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		for (dir = len2-1; dir > j; dir--)
 		{
 			
-			_pimpl->_positions.push_back( MTAlPos( nullptr,  residues2[(dir-1)]) );
+			_positions.push_back( MTAlPos( nullptr,  _residues2[(dir-1)]) );
 #ifdef VERBOSE_TRACEBACK
-			printf("-  %c  %1.1f\\n",_pimpl->_seq2[dir-1]);
+			printf("-  %c  %1.1f\\n",_seq2[dir-1]);
 #endif
 		}
 		i = len1-1;
@@ -261,19 +234,19 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		if (dir == 2)
 		{
 #ifdef VERBOSE_TRACEBACK
-			printf("%c  %c  %1.1f\\n",_pimpl->_seq1[i-1],_pimpl->_seq2[j-1],score);
+			printf("%c  %c  %1.1f\\n",_seq1[i-1],_seq2[j-1],score);
 #endif
-			_pimpl->_positions.push_back(MTAlPos(residues1[(i-1)], residues2[(j-1)]));
+			_positions.push_back(MTAlPos(_residues1[(i-1)], _residues2[(j-1)]));
 		} else if (dir == -1) { // gap in seq1 
 #ifdef VERBOSE_TRACEBACK
-			printf("-  %c\\n",_pimpl->_seq2[j-1]);
+			printf("-  %c\\n",_seq2[j-1]);
 #endif
-			_pimpl->_positions.push_back(MTAlPos(nullptr, residues2[(j-1)]));
+			_positions.push_back(MTAlPos(nullptr, _residues2[(j-1)]));
 		} else if (dir == 1) { // gap in seq2 
 #ifdef VERBOSE_TRACEBACK
-			printf("%c  -\\n",_pimpl->_seq1[i-1]);
+			printf("%c  -\\n",_seq1[i-1]);
 #endif
-			_pimpl->_positions.push_back(MTAlPos(residues1[(i-1)], nullptr));
+			_positions.push_back(MTAlPos(_residues1[(i-1)], nullptr));
 		} else {
 #ifdef VERBOSE_TRACEBACK
 			printf("?  ?  %1.1f\\n",score);
@@ -297,18 +270,18 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 		i--;
 #ifdef VERBOSE_TRACEBACK
 		score = scorematrix[i];
-		printf("%c  - \\n",_pimpl->_seq1[i-1]);
+		printf("%c  - \\n",_seq1[i-1]);
 #endif
-		_pimpl->_positions.push_back(MTAlPos(residues1[(i-1)], nullptr));
+		_positions.push_back(MTAlPos(_residues1[(i-1)], nullptr));
 	}
 	while (j>1)
 	{
 		j--;
 #ifdef VERBOSE_TRACEBACK
 		score = scorematrix[j*len1];
-		printf("-  %c\\n",_pimpl->_seq2[j-1]);
+		printf("-  %c\\n",_seq2[j-1]);
 #endif
-		_pimpl->_positions.push_back(MTAlPos(nullptr, residues2[(j-1)]));
+		_positions.push_back(MTAlPos(nullptr, _residues2[(j-1)]));
 	}
 
 	free (hinsert);
@@ -316,7 +289,7 @@ void MTPairwiseSequenceAlignment::computeGlobalAlignment()
 	free (scorematrix);
 	free (tbmatrix);
 
-	_pimpl->_computed = true;
+	_computed = true;
 }
 
 #undef VERBOSE_TRACEBACK

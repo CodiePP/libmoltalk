@@ -11,6 +11,8 @@
 
 namespace [mt](namespace_mt.list) {
 
+>class [MTAlignmentAlgo](MTAlignmentAlgo.hpp.md);
+
 >class [MTResidue](MTResidue.hpp.md);
 
 # class MTAlPos
@@ -33,7 +35,7 @@ public:
 >MTResidue* residue2() const { return _res2; }
 
 protected:
-friend MTPairwiseSequenceAlignment;
+friend MTAlignmentAlgo;
 
 >void set(MTResidue* r1, MTResidue* r2) { _res1 = r1; _res2 = r2; }
 
@@ -41,7 +43,7 @@ friend MTPairwiseSequenceAlignment;
 
 private:
 
->double _dist {-1.0};
+>double _dist {0.0};
 
 >MTResidue* _res1;
 

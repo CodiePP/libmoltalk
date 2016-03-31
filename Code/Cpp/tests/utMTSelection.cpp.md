@@ -22,7 +22,8 @@ BOOST_AUTO_TEST_SUITE( utMTSelection )
 ~~~ { .cpp }
 BOOST_AUTO_TEST_CASE( test101 )
 {
-	mt::MTSelection _sel;
+        mt::MTChain * c = nullptr;
+	mt::MTSelection _sel(c);
 }
 ~~~
 

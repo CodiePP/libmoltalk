@@ -4,7 +4,7 @@ declared in [MTSelection](MTSelection.hpp.md)
 ~~~ { .cpp }
 int MTSelection::count() const
 {
-	return 0;
+        return _residues.size();
 }
 
 std::string MTSelection::toString() const
@@ -12,9 +12,9 @@ std::string MTSelection::toString() const
 	return "";
 }
 
-std::list<std::tuple<MTResidue*, MTResidue*>> MTSelection::getSelection() const
+std::list<MTResidue*> MTSelection::getSelection() const
 {
-	return {};
+	return _residues;
 }
 
 ~~~

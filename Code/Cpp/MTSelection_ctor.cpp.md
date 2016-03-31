@@ -3,7 +3,8 @@ declared in [MTSelection](MTSelection.hpp.md)
 
 ~~~ { .cpp }
 
-MTSelection::MTSelection()
+MTSelection::MTSelection(MTChain * c)
+    : _chain(c)
 {
 }
 

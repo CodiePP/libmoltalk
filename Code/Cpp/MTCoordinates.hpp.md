@@ -51,6 +51,16 @@ public:
 
 >double [z](MTCoordinates_getters.cpp.md)() const;
 
+>long [hash6](MTCoordinates_getters.cpp.md)() const;
+
+>long [hash7](MTCoordinates_getters.cpp.md)() const;
+
+>long [hash8](MTCoordinates_getters.cpp.md)() const;
+
+>long [hash9](MTCoordinates_getters.cpp.md)() const;
+
+>long [hash10](MTCoordinates_getters.cpp.md)() const;
+
 ## /* transform this coordinates */
 
 >virtual void [transformBy](MTCoordinates_transformBy.cpp.md)(MTMatrix53 const & m);
@@ -73,7 +83,11 @@ public:
 
 >virtual [~MTCoordinates](MTCoordinates_dtor.cpp.md)();
 
+private:
+
 ## /* brewery */
+
+>template \\<int W\\> long [hash](MTCoordinates_getters.cpp.md)() const;
 
 >//[code header](MTCoordinates_-alpha-.md)();
 

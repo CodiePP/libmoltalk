@@ -9,12 +9,14 @@
 
 #include <string>
 #include <list>
-#include <tuple>
 ~~~
 
 namespace [mt](namespace_mt.list) {
 
+>class [MTChain](MTChain.hpp.md);
+
 >class [MTResidue](MTResidue.hpp.md);
+
 >class [MTMatrix53](MTMatrix53.hpp.md);
 
 # class MTSelection
@@ -30,15 +32,15 @@ public:
 
 >std::string [toString](MTSelection_access.cpp.md)() const;
 
->std::list\\<std::tuple\\<MTResidue\\*,MTResidue\\*\\>\\> [getSelection](MTSelection_access.cpp.md)() const;
+>std::list\\<MTResidue\\*\\> [getSelection](MTSelection_access.cpp.md)() const;
 
 ## /* operations */
 
->bool [containsResidue](MTSelection_operations.cpp.md)(MTResidue const *) const;
+>bool [containsResidue](MTSelection_operations.cpp.md)(MTResidue * const) const;
 
 >void [addResidue](MTSelection_operations.cpp.md)(MTResidue *);
 
->void [removeResidue](MTSelection_operations.cpp.md)(MTResidue *);
+>void [removeResidue](MTSelection_operations.cpp.md)(MTResidue * const);
 
 >void [setDifference](MTSelection_operations.cpp.md)(MTSelection const *);
 
@@ -50,9 +52,17 @@ public:
 
 ## /* creation */
 
->[MTSelection](MTSelection_ctor.cpp.md)();
+>[MTSelection](MTSelection_ctor.cpp.md)(MTChain *);
 
 >virtual [~MTSelection](MTSelection_dtor.cpp.md)();
+
+private:
+
+> MTChain * _chain {nullptr};
+
+> std::list\\<MTResidue\\*\\> _residues;
+
+> MTSelection() = delete;
 
 ## /* brewery */
 

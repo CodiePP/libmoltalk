@@ -1,14 +1,14 @@
 
-declared in [MTPairwiseSequenceAlignment](MTPairwiseSequenceAlignment.hpp.md)
+declared in [MTAlignmentAlgo](MTAlignmentAlgo.hpp.md)
 
 ~~~ { .cpp }
 
 #undef VERBOSE_TRACEBACK
 
-void MTPairwiseSequenceAlignment::computeLocalAlignment()
+void MTAlignmentAlgo::computeLocalAlignment()
 {
-	float f_gop = _pimpl->_gop;
-	float f_gep = _pimpl->_gep;
+	float f_gop = _gop;
+	float f_gep = _gep;
 	int maxrow, maxcol;
 	float maxscore;
 	float *scorematrix;
@@ -17,45 +17,18 @@ void MTPairwiseSequenceAlignment::computeLocalAlignment()
 	int len1, len2;
 	int row,col,i,j,dir;
 	float score, h1,h2,h3,tval;
-	std::list<MTResidue*> lres;
-	std::vector<MTResidue*> residues1;
-	std::vector<MTResidue*> residues2;
 
-	_pimpl->_positions = {};
+	_positions = {};
 
-	/* prepare sequence 1 and 2 */
-	if (_pimpl->_chain1) {
-		_pimpl->_seq1 = _pimpl->_chain1->get3DSequence(); }
-	else {
-		MTChainFactory _cf;
-		_pimpl->_chain1 = _cf.createAAChainWithSequence('A', _pimpl->_seq1);
-	}
-	lres = _pimpl->_chain1->filterResidues([](MTResidue* r)->bool { return r->isStandardAminoAcid(); });
-        lres.sort([](MTResidue *r1, MTResidue *r2)->bool {
-            return r1->number() < r2->number();
-          });
-	residues1 = std::vector<MTResidue*>(lres.begin(), lres.end());
 	i = 0;
-	for (auto r : residues1) {
-		std::clog << _pimpl->_chain1->name() << ": " << (++i) << " " << r->name() << "/" << r->oneLetterCode() << std::endl; }
-	len1 = _pimpl->_seq1.size()+1;
+	for (auto r : _residues1) {
+		std::clog << _chain1->name() << ": " << (++i) << " " << r->name() << "/" << r->oneLetterCode() << std::endl; }
+	len1 = _seq1.size()+1;
 
-	if (_pimpl->_chain2) {
-		_pimpl->_seq2 = _pimpl->_chain2->get3DSequence(); }
-	else {
-		MTChainFactory _cf;
-		_pimpl->_chain2 = _cf.createAAChainWithSequence('B', _pimpl->_seq2);
-	}
-	lres = _pimpl->_chain2->filterResidues([](MTResidue* r)->bool { return r->isStandardAminoAcid(); });
-        lres.sort([](MTResidue *r1, MTResidue *r2)->bool {
-            return r1->number() < r2->number();
-          });
-	residues2 = std::vector<MTResidue*>(lres.begin(), lres.end());
 	i = 0;
-	for (auto r : residues2) {
-		std::clog << _pimpl->_chain2->name() << ": " << (++i) << " " << r->name() << "/" << r->oneLetterCode() << std::endl; }
-	len2 = _pimpl->_seq2.size()+1;
-	lres = {};
+	for (auto r : _residues2) {
+		std::clog << _chain2->name() << ": " << (++i) << " " << r->name() << "/" << r->oneLetterCode() << std::endl; }
+	len2 = _seq2.size()+1;
 
 	scorematrix = (float*)calloc((len1)*(len2),sizeof(float));
 	vinsert = (float*)calloc((len1)*(len2),sizeof(float));
@@ -70,10 +43,8 @@ void MTPairwiseSequenceAlignment::computeLocalAlignment()
 
 	/* prepare scoring matrix */
 	dir = 0;
-	for (row=0; row<len2; row++)
-	{
-		for (col=0; col<len1; col++)
-		{
+	for (row=0; row<len2; row++) {
+		for (col=0; col<len1; col++) {
 			scorematrix[dir] = 0.0f;
 			vinsert[dir] = 0.0f;
 			hinsert[dir] = 0.0f;
@@ -84,12 +55,10 @@ void MTPairwiseSequenceAlignment::computeLocalAlignment()
 	maxrow=0; maxcol=0; // will hold row/col of highest value in matrix
 	maxscore=0.0f; // maximum score
 	dir=0; // direction of transition: -1==down, 1==right, 2==diagonal, 0==end of alignment
-	for (col=1; col<len1; col++)
-	{
-		for (row=1; row<len2; row++)
-		{
+	for (col=1; col<len1; col++) {
+		for (row=1; row<len2; row++) {
 			h1=0.0f;h2=0.0f;h3=0.0f;
-			score = _pimpl->_substm->scoreBetween(_pimpl->_seq1[col-1], _pimpl->_seq2[row-1]);
+			score = _substm->scoreBetween(_seq1[col-1], _seq2[row-1]);
 			//printf("%@ - %@ d:%2.2f h1=%2.2f\n",here,there,dist,h1);
 			h1 = scorematrix[(row-1)*len1+(col-1)] + score; // diagonal element
 			h2 = hinsert[(row-1)*len1+(col-1)] + score; // end of gap horizontal
@@ -112,8 +81,7 @@ void MTPairwiseSequenceAlignment::computeLocalAlignment()
 			tbmatrix[(row)*len1+(col)] = dir; // save traceback direction
 			
 			// update maximum row/col
-			if (score >= maxscore)
-			{
+			if (score >= maxscore) {
 				maxscore = score;
 				maxrow = row; maxcol = col;
 			}
@@ -135,17 +103,14 @@ void MTPairwiseSequenceAlignment::computeLocalAlignment()
 	if (outfile)
 	{
 		fprintf(outfile,". .  ");
-		for (col=1; col<len1; col++)
-		{
-			fprintf(outfile,"   %c  ",_pimpl->_seq1[col-1]);
+		for (col=1; col<len1; col++) {
+			fprintf(outfile,"   %c  ",_seq1[col-1]);
 		}
 		fprintf(outfile,"\\n");
-		for (row=0; row<len2; row++)
-		{
-			if (row > 0) fprintf(outfile,"%c ",_pimpl->_seq2[row-1]);
+		for (row=0; row<len2; row++) {
+			if (row > 0) fprintf(outfile,"%c ",_seq2[row-1]);
 			else fprintf(outfile,"   ");
-			for (col=0; col<len1; col++)
-			{
+			for (col=0; col<len1; col++) {
 				fprintf(outfile,"% 3.1f ",scorematrix[row*len1+col]);
 			}
 			fprintf(outfile,"\\n");
@@ -153,20 +118,16 @@ void MTPairwiseSequenceAlignment::computeLocalAlignment()
 		fclose(outfile);
 	}
 	outfile = fopen("t_tb.csv","w");
-	if (outfile)
-	{
+	if (outfile) {
 		fprintf(outfile,".     ");
-		for (col=1; col<len1; col++)
-		{
-			fprintf(outfile,"  %c ",_pimpl->_seq1[col-1]);
+		for (col=1; col<len1; col++) {
+			fprintf(outfile,"  %c ",_seq1[col-1]);
 		}
 		fprintf(outfile,"\\n");
-		for (row=0; row<len2; row++)
-		{
-			if (row > 0) fprintf(outfile,"%c ",_pimpl->_seq2[row-1]);
+		for (row=0; row<len2; row++) {
+			if (row > 0) fprintf(outfile,"%c ",_seq2[row-1]);
 			else fprintf(outfile,"  ");
-			for (col=0; col<len1; col++)
-			{
+			for (col=0; col<len1; col++) {
 				fprintf(outfile,"% 3d ",tbmatrix[row*len1+col]);
 			}
 			fprintf(outfile,"\\n");
@@ -185,19 +146,19 @@ void MTPairwiseSequenceAlignment::computeLocalAlignment()
 		if (dir == 2)
 		{
 #ifdef VERBOSE_TRACEBACK
-			printf("%c  %c  %1.1f @%d/%d\\n",_pimpl->_seq1[i-1],_pimpl->_seq2[j-1],score,i,j);
+			printf("%c  %c  %1.1f @%d/%d\\n",_seq1[i-1],_seq2[j-1],score,i,j);
 #endif
-			_pimpl->_positions.push_back(MTAlPos(residues1[(i-1)], residues2[(j-1)]));
+			_positions.push_back(MTAlPos(_residues1[(i-1)], _residues2[(j-1)]));
 		} else if (dir == -1) { // gap in seq1 
 #ifdef VERBOSE_TRACEBACK
-			printf("-  %c\\n",_pimpl->_seq2[j-1]);
-			_pimpl->_positions.push_back(MTAlPos(nullptr, residues2[(j-1)]));
+			printf("-  %c\\n",_seq2[j-1]);
+			_positions.push_back(MTAlPos(nullptr, _residues2[(j-1)]));
 #endif
 		} else if (dir == 1) { // gap in seq2 
 #ifdef VERBOSE_TRACEBACK
-			printf("%c  -\\n",_pimpl->_seq1[i-1]);
+			printf("%c  -\\n",_seq1[i-1]);
 #endif
-			_pimpl->_positions.push_back(MTAlPos(residues1[(i-1)], nullptr));
+			_positions.push_back(MTAlPos(_residues1[(i-1)], nullptr));
 		} else {
 #ifdef VERBOSE_TRACEBACK
 			printf("?  ?  %1.1f\\n",score);
@@ -223,7 +184,7 @@ void MTPairwiseSequenceAlignment::computeLocalAlignment()
 	free (scorematrix);
 	free (tbmatrix);
 
-	_pimpl->_computed = true;
+	_computed = true;
 }
 
 #undef VERBOSE_TRACEBACK
@@ -441,7 +402,7 @@ original objc code:
 #ifdef VERBOSE_TRACEBACK
 			printf("%c  -\n",seq1[i-1]);
 #endif
-			alpos = [MTAlPos alposWithRes1: [residues1 objectAtIndex: (i-1)] res2: nil];
+			alpos = [MTAlPos alposWithRes1: [_residues1 objectAtIndex: (i-1)] res2: nil];
 		} else {
 #ifdef VERBOSE_TRACEBACK
 			printf("?  ?  %1.1f\n",score);

@@ -1,0 +1,23 @@
+@startuml
+
+class MTAlignmentAlgo {
+--setters--
+void setGop(float)
+void setGep(float)
+--access--
+void computeLocalAlignment()
+void computeGlobalAlignment()
+}
+
+class MTPairwiseSequenceAlignment {
+}
+
+class MTPairwiseStrxAlignment {
+void optimize()
+}
+
+MTPairwiseSequenceAlignment -|> MTAlignmentAlgo
+MTPairwiseStrxAlignment -|> MTAlignmentAlgo
+
+
+@enduml
