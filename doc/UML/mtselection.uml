@@ -1,0 +1,15 @@
+@startuml
+
+class MTSelection {
+--getters/setters--
+void addResidue(r)
+void removeResidue(r)
+--operations--
+void setDifference(sel2)
+void setUnion(sel2)
+--access--
+int count()
+bool containsResidue(r)
+}
+
+@enduml
