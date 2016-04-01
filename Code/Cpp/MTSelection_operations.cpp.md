@@ -4,9 +4,10 @@ declared in [MTSelection](MTSelection.hpp.md)
 ~~~ { .cpp }
 bool MTSelection::containsResidue(MTResidue * const r) const
 {
-    return std::find_if(_residues.cbegin(), _residues.cend(),
-        [r](std::list<MTResidue*>::const_iterator it)->bool {
-            return (r == *it); });
+    auto it = std::find_if(_residues.cbegin(), _residues.cend(),
+            [r](MTResidue* const r2)->bool {
+                return (r == r2); });
+    return (it != _residues.cend());
 }
 
 void MTSelection::addResidue(MTResidue *r)
@@ -17,9 +18,11 @@ void MTSelection::addResidue(MTResidue *r)
 
 void MTSelection::removeResidue(MTResidue * const r)
 {
-    remove_if(_residues.begin(), _residues.end(),
-        [r](MTResidue const *r2)->bool {
-            return (r2 == r); });
+    auto it = std::find_if(_residues.begin(), _residues.end(),
+            [r](MTResidue* const r2)->bool {
+                return (r == r2); });
+    if (it != _residues.end()) {
+        _residues.erase(it); }
 }
 
 void MTSelection::setDifference(MTSelection const *s)
