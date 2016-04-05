@@ -40,7 +40,7 @@ is defined by the selection of bits to encode the hashvalue.
 
 ~~~ { .cpp }
 
-#define MAX_RANGE (499.0+499.0)
+//#define MAX_RANGE (499.0+499.0)
 template<int W>
 long MTCoordinates::hash() const
 {
@@ -78,6 +78,16 @@ long MTCoordinates::hash8() const { return hash<8>(); }
 long MTCoordinates::hash9() const { return hash<9>(); }
 
 long MTCoordinates::hash10() const { return hash<10>(); }
+
+long MTCoordinates::hash(const int bits) const 
+{
+    if (bits < 6 || bits > 10) { return 0; }
+    if (bits == 6) { return hash<6>(); };
+    if (bits == 7) { return hash<7>(); };
+    if (bits == 8) { return hash<8>(); };
+    if (bits == 9) { return hash<9>(); };
+    return hash<10>();
+}
 
 ~~~
 

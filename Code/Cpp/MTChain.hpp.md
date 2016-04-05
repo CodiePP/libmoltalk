@@ -15,6 +15,7 @@
 #include "MTDataKV.hpp"
 
 #include <string>
+#include <set>
 #include <unordered_map>
 ~~~
 
@@ -37,9 +38,8 @@ protected:
         std::unordered_map<std::string, MTResidue*> _heterogens;
         std::unordered_map<std::string, MTResidue*> _residues;
 
-/*        NSMutableDictionary *_residuehash;
-        unsigned int _hashingbits;
-        double _hash_value_offset; */
+        unsigned int _hashingbits {0};
+        std::unordered_map<long, std::set<MTResidue*>> _residuehash;
 
 public:
 ~~~
@@ -83,14 +83,6 @@ public:
 
 >virtual void [rotateBy](MTChain_transformation.cpp.md)(MTMatrix44 const &);
 
-
-/* enumerator over residues, heterogens, solvent, respectively */
-
-> //(NSEnumerator*)allResidues;
-
-> //(NSEnumerator*)allHeterogens;
-
-> //(NSEnumerator*)allSolvent;
 
 /* count of residues, heterogens, solvent, respectively */
 
@@ -144,15 +136,12 @@ public:
 
 ## /* geometric hash of all residues in this Chain */
 
- /* not yet
+> void [prepareResidueHash](MTChain_residuehash.cpp.md)(float binwidth);
 
-> -(void)prepareResidueHash:(float)binwidth;
+> void [prepareResidueHash](MTChain_residuehash.cpp.md)(int bits);
 
-> -(NSArray*)findResiduesCloseTo:(MTCoordinates*)p_coords;
+> std::list\\<MTResidue*\\>[findResiduesCloseTo](MTChain_residuehash.cpp.md)(MTCoordinates const &) const;
 
-> -(NSNumber*)mkCoordinatesHashX:(double)x Y:(double)y Z:(double)z; // compute hash key value
-
- */
 
 ## /* descriptors */
 

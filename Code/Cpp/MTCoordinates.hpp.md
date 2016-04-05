@@ -23,6 +23,8 @@ namespace [mt](namespace_mt.list) {
 public:
 ~~~
 
+static constexpr double MAX_RANGE = 998.0;
+
 ## /* comparison */
 
 >bool [operator==](MTCoordinates_comparison.cpp.md)(MTCoordinates const & c) const;
@@ -50,6 +52,8 @@ public:
 >double [y](MTCoordinates_getters.cpp.md)() const;
 
 >double [z](MTCoordinates_getters.cpp.md)() const;
+
+>long [hash](MTCoordinates_getters.cpp.md)(const int bits) const;
 
 >long [hash6](MTCoordinates_getters.cpp.md)() const;
 

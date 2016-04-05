@@ -9,6 +9,9 @@
 
 #include "MTChainFactory.hpp"
 #include "MTChain.hpp"
+#include "MTResidue.hpp"
+#include "MTAtom.hpp"
+#include "MTCoordinates.hpp"
 
 #include <iostream>
 #include <typeinfo>
@@ -195,6 +198,56 @@ BOOST_AUTO_TEST_CASE( fmap_over_solvant )
 	counter=0;
 	inst->findSolvent(_fmap);
 	BOOST_CHECK_EQUAL( 0, counter );
+}
+~~~
+
+## Test case: residue_hash_map
+~~~ { .cpp }
+BOOST_AUTO_TEST_CASE( residue_hash_map )
+{
+	mt::MTChainFactory _factory;
+	auto inst = _factory.newInstance();
+	BOOST_CHECK( bool(inst) );
+
+	mt::MTResidue* r1=new mt::MTResidue();
+	r1->name("r1"); r1->number(37);
+	inst->addResidue(r1);
+        mt::MTAtom* a1=new mt::MTAtom();
+        a1->setXYZB(1.0, -2.0, 3.0, 97.0);
+        r1->addAtom(a1);
+	mt::MTResidue* r2=new mt::MTResidue();
+	r2->name("r2"); r2->number(38);
+	inst->addResidue(r2);
+        mt::MTAtom* a2=new mt::MTAtom();
+        a2->setXYZB(1.1, -2.1, 3.1, 98.0);
+        r2->addAtom(a2);
+	mt::MTResidue* r3=new mt::MTResidue();
+	r3->name("r3"); r3->number(39);
+	inst->addResidue(r3);
+        mt::MTAtom* a3=new mt::MTAtom();
+        a3->setXYZB(10.1, -12.1, 42.1, 99.0);
+        r3->addAtom(a3);
+
+	BOOST_CHECK_EQUAL( 3, inst->countResidues() );
+
+        inst->prepareResidueHash(8);
+
+        mt::MTCoordinates c1(0.9, -2.05, 2.94);
+        auto l1 = inst->findResiduesCloseTo(c1);
+        std::clog << "|l1| = " << l1.size() << std::endl;
+        BOOST_CHECK_EQUAL( 2, l1.size() );
+        for (auto r : l1) {
+            std::clog << "    r = " << r->name() << " " << r->number() << std::endl; }
+        mt::MTCoordinates c2(10.9, -12.05, 42.94);
+        auto l2 = inst->findResiduesCloseTo(c2);
+        BOOST_CHECK_EQUAL( 1, l2.size() );
+        std::clog << "|l2| = " << l2.size() << std::endl;
+        for (auto r : l2) {
+            std::clog << "    r = " << r->name() << " " << r->number() << std::endl; }
+        mt::MTCoordinates c3(-10.9, 12.05, -42.94);
+        auto l3 = inst->findResiduesCloseTo(c3);
+        BOOST_CHECK_EQUAL( 0, l3.size() );
+        std::clog << "|l3| = " << l3.size() << std::endl;
 }
 ~~~
 

@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_CASE( test_calculateCoordsHash )
     mt::MTCoordinates _c1(0.0, 1.0, 0.0);
     mt::MTCoordinates _c2(0.0, -1.0, 0.0);
     mt::MTCoordinates _c3(0.0, 0.0, 0.0);
-    mt::MTCoordinates _c4(-3.0, -1.0, -2.0);
+    mt::MTCoordinates _c4(-0.1, 0.1, -0.1);
     BOOST_CHECK_EQUAL( 133152L, _c1.hash6() );
     BOOST_CHECK_EQUAL( 1056832L, _c1.hash7() );
     BOOST_CHECK_EQUAL( 8421504L, _c1.hash8() );
@@ -146,6 +146,11 @@ BOOST_AUTO_TEST_CASE( test_calculateCoordsHash )
     BOOST_CHECK_EQUAL( 8421504L, _c2.hash8() );
     BOOST_CHECK_EQUAL( 67239680L, _c2.hash9() );
     BOOST_CHECK_EQUAL( 537394688L, _c2.hash10() );
+    BOOST_CHECK_EQUAL( _c3.hash6(), _c4.hash6() );
+    BOOST_CHECK_EQUAL( _c3.hash7(), _c4.hash7() );
+    BOOST_CHECK_EQUAL( _c3.hash8(), _c4.hash8() );
+    BOOST_CHECK_EQUAL( _c3.hash9(), _c4.hash9() );
+    BOOST_CHECK_EQUAL( _c3.hash10(), _c4.hash10() );
 }
 ~~~
 
