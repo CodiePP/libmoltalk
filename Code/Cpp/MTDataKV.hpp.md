@@ -75,6 +75,8 @@ bool [get](MTDataKV_access.cpp.md)(std::string const & k, T &) const;
 >template \\<typename T\\>
 bool [set](MTDataKV_access.cpp.md)(std::string const & k, T const &);
 
+>bool [set](MTDataKV_access.cpp.md)(std::string const & k, bool v);
+
 >bool [set](MTDataKV_access.cpp.md)(std::string const & k, char const * v);
 
 >bool [unset](MTDataKV_access.cpp.md)(std::string const & k);

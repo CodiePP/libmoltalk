@@ -104,10 +104,13 @@ template<> bool MTDataKV::_kvpair::get(MTAtom * & _out) const
 
 std::string MTDataKV::toString() const
 {
+        int i=0;
 	std::ostringstream ss;
 	ss << "[";
 	for (auto const & e : _kvmap) {
+                if (i>0) { ss << " "; }
 		ss << "'" << e.first << "' = " << e.second << std::endl;
+                i++;
 	}
 	ss << "]";
 	return ss.str();
@@ -162,6 +165,11 @@ template bool MTDataKV::set(std::string const & k, MTStructure * const & v);
 bool MTDataKV::set(std::string const & k, char const * v)
 {
 	return set(k, std::string(v));
+}
+
+bool MTDataKV::set(std::string const & k, bool v)
+{
+	return set(k, int(v));
 }
 
 bool MTDataKV::unset(std::string const & k)
