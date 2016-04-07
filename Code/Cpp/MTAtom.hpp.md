@@ -170,6 +170,14 @@ public:
 
 >virtual void [translateBy](MTAtom_trafo.cpp.md)(MTCoordinates const & c);
 
+>virtual MTCoordinates [differenceTo](MTAtom_trafo.cpp.md)(MTAtom const * const) const;
+
+>virtual MTCoordinates [differenceTo](MTAtom_trafo.cpp.md)(MTAtom const &) const;
+
+>virtual double [distanceTo](MTAtom_trafo.cpp.md)(MTAtom const * const) const;
+
+>virtual double [distanceTo](MTAtom_trafo.cpp.md)(MTAtom const &) const;
+
 ## /* creation */
 
 >// +(MTAtom*)atomWithNumber:(unsigned int)num name:(char*)nm X:(double)x Y:(double)y Z:(double)z B:(float)b;

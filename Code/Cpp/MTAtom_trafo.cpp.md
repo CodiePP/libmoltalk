@@ -49,6 +49,36 @@ void MTAtom::translateBy(MTCoordinates const & c)
 	a._y += c.y();
 	a._z += c.z();
 }
+~~~
 
+~~~ { .cpp }
+MTCoordinates MTAtom::differenceTo(MTAtom const * const a) const
+{
+	_atm_s & a1 = _atm_tbl[_number];
+	_atm_s & a2 = _atm_tbl[a->number()];
+        return MTCoordinates(a1._x - a2._x, a1._y - a2._y, a1._z - a2._z);
+}
+~~~
+
+~~~ { .cpp }
+MTCoordinates MTAtom::differenceTo(MTAtom const & a) const
+{
+        return differenceTo(&a);
+}
+~~~
+
+~~~ { .cpp }
+double MTAtom::distanceTo(MTAtom const * const a) const
+{
+        MTCoordinates c = differenceTo(a);
+        return sqrt(c.x()*c.x()+c.y()*c.y()+c.z()*c.z());
+}
+~~~
+
+~~~ { .cpp }
+double MTAtom::distanceTo(MTAtom const & a) const
+{
+        return distanceTo(&a);
+}
 ~~~
 

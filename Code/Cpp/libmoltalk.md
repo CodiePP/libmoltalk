@@ -90,6 +90,7 @@ Parser for structure data in PDB file format.
 Dynamically load plugins from DLL
 
 [MTModule](MTModule.hpp.md)
+[MTModuleLoader](MTModuleLoader.hpp.md)
 
 ## MTSelection
 
