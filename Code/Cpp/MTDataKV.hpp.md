@@ -79,6 +79,8 @@ bool [set](MTDataKV_access.cpp.md)(std::string const & k, T const &);
 
 >bool [unset](MTDataKV_access.cpp.md)(std::string const & k);
 
+>bool [has](MTDataKV_access.cpp.md)(std::string const & k) const;
+
 ## /* comparison */
 
 >bool [operator==](MTDataKV_operators.cpp.md)(MTDataKV const &) const;

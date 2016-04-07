@@ -172,5 +172,12 @@ bool MTDataKV::unset(std::string const & k)
 	return true;
 }
 
+bool MTDataKV::has(std::string const & k) const
+{
+	auto const it = _kvmap.find(k);
+	if (it == _kvmap.cend()) { return false; }
+	return true;
+}
+
 ~~~
 
