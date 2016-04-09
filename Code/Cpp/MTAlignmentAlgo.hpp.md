@@ -42,6 +42,10 @@ public:
 
 >int [countGapped](MTAlignmentAlgo_access.cpp.md)() const;
 
+>std::list\\<MTAlPos\\>::const_iterator [cbegin](MTAlignmentAlgo_access.cpp.md)() const;
+
+>std::list\\<MTAlPos\\>::const_iterator [cend](MTAlignmentAlgo_access.cpp.md)() const;
+
 ## /* setters */
 
 >void [setGop](MTAlignmentAlgo_setters.cpp.md)(float);

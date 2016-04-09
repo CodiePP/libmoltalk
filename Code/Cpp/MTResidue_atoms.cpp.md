@@ -5,7 +5,7 @@ declared in [MTResidue](MTResidue.hpp.md)
 
 MTAtom* MTResidue::getCA() const
 {
-	return getAtom(" CA");
+	return getAtom("CA");
 }
 
 MTAtom* MTResidue::getAtom(std::string as) const

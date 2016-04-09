@@ -904,7 +904,7 @@ BOOST_AUTO_TEST_CASE( parse_connect )
 	BOOST_CHECK( bool(_chain) );
 	auto _residue = _chain->getResidue(181);
 	BOOST_CHECK( bool(_residue) );
-	auto _atm1 = _residue->getAtom(" OG");
+	auto _atm1 = _residue->getAtom("OG");
 	BOOST_CHECK( _atm1 != nullptr );
 	mt::MTAtom * _atm2;
 	int _cnt = 0;

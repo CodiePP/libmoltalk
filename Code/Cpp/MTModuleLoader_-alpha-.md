@@ -3,18 +3,18 @@
 #include "MTModuleLoader.hpp"
 
 #include <iostream>
-#include <sstream>
 #include <dlfcn.h>
 
 #include "boost/filesystem.hpp"
 
 namespace mt {
 
-struct MTModuleLoader::pimpl {
-
-	std::string _name;
-
-};
+#ifdef Linux
+        extern MTModule* load_linux(const char *);
+#endif
+#ifdef Windows
+        extern MTModule* load_win(const char *);
+#endif
 
 ~~~
 

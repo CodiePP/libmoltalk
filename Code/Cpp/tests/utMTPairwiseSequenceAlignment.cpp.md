@@ -26,7 +26,21 @@ BOOST_AUTO_TEST_CASE( global_align_sequence_to_sequence )
 	const std::string seq2("ACDGGGEFGFFFFHI");
 	mt::MTPairwiseSequenceAlignment _al(seq1,seq2);
 	_al.computeGlobalAlignment();
-	std::clog << _al << std::endl;
+	//std::clog << _al << std::endl;
+        std::for_each(_al.cbegin(), _al.cend(), [](mt::MTAlPos const & alpos) {
+            if (alpos.residue1()) {
+                std::clog << alpos.residue1()->oneLetterCode() << " "; }
+            else {
+                std::clog << "- "; }
+        });
+        std::clog << std::endl;
+        std::for_each(_al.cbegin(), _al.cend(), [](mt::MTAlPos const & alpos) {
+            if (alpos.residue2()) {
+                std::clog << alpos.residue2()->oneLetterCode() << " "; }
+            else {
+                std::clog << "- "; }
+        });
+        std::clog << std::endl;
 }
 ~~~
 

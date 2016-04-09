@@ -28,9 +28,27 @@ MTModule* MTModuleLoader::load(std::string const & n)
 
 	// load object file
 
-	void * _dll = dlopen(fname.c_str(), RTLD_LOCAL | RTLD_LAZY);
+	MTModule *_module = nullptr;
+#ifdef Linux
+        _module = load_linux(fname.c_str());
+#endif
+#ifdef Windows
+        _module = load_win(fname.c_str());
+#endif
+	
+	// return to caller
+
+	return _module;
+}
+
+~~~
+
+~~~ { .cpp }
+MTModule* load_linux(const char * dllpath)
+{
+	void * _dll = dlopen(dllpath, RTLD_LOCAL | RTLD_LAZY);
 	if (! _dll) {
-		std::clog << "failed to open module: " << n << std::endl;
+		std::clog << "failed to open module: " << dllpath << std::endl;
 		std::clog << " reason: " << dlerror() << std::endl;
 		return nullptr;
 	}
@@ -38,14 +56,11 @@ MTModule* MTModuleLoader::load(std::string const & n)
 	// find address of loader function
 	MTModule*(*_ldr)() = (MTModule*(*)())dlsym(_dll, "create_module");
 	if (! _ldr) {
-		std::clog << "failed to find entry function in module: " << n << std::endl;
+		std::clog << "failed to find entry function in module: " << dllpath << std::endl;
 		std::clog << " reason: " << dlerror() << std::endl;
 		return nullptr;
 	}
-	
-	// return to caller
-
-	return _ldr();
+        return _ldr();
 }
-
 ~~~
+

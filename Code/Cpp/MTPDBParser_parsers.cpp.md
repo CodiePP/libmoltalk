@@ -294,7 +294,7 @@ void MTPDBParser::pimpl::clip(std::string & s) const
 // parsers
 void MTPDBParser::pimpl::readAtom(pdbline const & line)
 {
-	unsigned int i;
+	unsigned int i,j;
 	unsigned int serial,resnr;
 	char aname[5]; /* atom name */
 	char rname[4]; /* residue name */
@@ -310,7 +310,9 @@ void MTPDBParser::pimpl::readAtom(pdbline const & line)
 	/* serial number */
 	serial = mkInt(line.buf+6,5); /* 7 - 11 atom serial number */
 	/* atom name */
-	for (i=0; i<4; i++) { aname[i]=line.buf[i+12]; } /* 13 - 16 atom name */
+        j=0;
+        for (i=0; i<4; i++) { aname[i]='\\0'; }
+	for (i=0; i<4; i++) { if (line.buf[i+12]!=' ') { aname[j++]=line.buf[i+12]; } } /* 13 - 16 atom name */
 	aname[4]='\\0';
 	for (i=3; i>0; i--) { if (aname[i]==' ') aname[i]='\\0'; } /* remove trailing whitespace */
 	/* residue name */

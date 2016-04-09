@@ -3,6 +3,16 @@ declared in [MTAlignmentAlgo](MTAlignmentAlgo.hpp.md)
 
 ~~~ { .cpp }
 
+std::list\<MTAlPos\>::const_iterator MTAlignmentAlgo::cbegin() const
+{
+    return _positions.cbegin();
+}
+
+std::list\<MTAlPos\>::const_iterator MTAlignmentAlgo::cend() const
+{
+    return _positions.cend();
+}
+
 std::string MTAlignmentAlgo::toString() const
 {
     std::string s;

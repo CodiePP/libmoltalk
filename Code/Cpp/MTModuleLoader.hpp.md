@@ -43,10 +43,6 @@ private:
 
 > MTModuleLoader & operator=(MTModuleLoader const &) = delete;
 
->struct pimpl;
-
->std::unique_ptr\\<pimpl\\> _pimpl;
-
 ~~~ { .cpp }
 };
 

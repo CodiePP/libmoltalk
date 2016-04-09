@@ -18,7 +18,7 @@ ENDIF()
 #set(CMAKE_CXX_COMPILER "/usr/local/bin/g++48")
 #set(CMAKE_CXX_COMPILER "/usr/local/bin/clang36")
 
-#add_definitions( -DLinux )
+add_definitions( -DLinux )
 #add_definitions( -DFreeBSD )
 #add_definitions( -DWindows )
 
