@@ -43,7 +43,7 @@ void MTChain::prepareResidueHash(int bits)
 }
 ~~~
 
-## findResiduesCloseTo
+## findResiduesCloseTo MTCoordinates
 
 ~~~ { .cpp }
 std::list<MTResidue*> MTChain::findResiduesCloseTo(MTCoordinates const & coords) const
@@ -59,6 +59,37 @@ std::list<MTResidue*> MTChain::findResiduesCloseTo(MTCoordinates const & coords)
     }
 
     return l;
+}
+~~~
+
+## findResiduesCloseTo MTChain
+
+~~~ { .cpp }
+std::list<MTResidue*> MTChain::findResiduesCloseTo(MTChain * c2, float maxdist) const
+{
+    if (_hashingbits == 0) { return {}; }
+
+    std::set<MTResidue*> l;
+    c2->prepareResidueHash(8);
+    filterResidues([this,&l,c2,maxdist](MTResidue *r)->bool {
+        MTAtom *a = r->getCA();
+        if (a) {
+            MTCoordinates co = a->coords();
+            auto lres = c2->findResiduesCloseTo(co);
+            std::remove_if(lres.begin(), lres.end(), 
+                [maxdist,&co](MTResidue *r2)->bool {
+                    MTAtom *a = r2->getCA();
+                    if (a) {
+                        double d2 = co.distance2To(a->coords());
+                        if (d2 < maxdist) { return false; }
+                    }
+                    return true;
+                });
+            for_each(lres.begin(), lres.end(), [&l](MTResidue *r){
+                l.emplace(r); });
+        }
+    });
+    return {l.begin(), l.end()};
 }
 ~~~
 

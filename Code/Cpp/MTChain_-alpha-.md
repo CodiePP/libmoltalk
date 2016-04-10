@@ -10,6 +10,8 @@
 
 #include <iostream>
 #include <cstdio>
+#include <algorithm>
+#include <set>
 
 namespace mt {
 

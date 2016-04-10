@@ -142,6 +142,8 @@ public:
 
 > std::list\\<MTResidue*\\>[findResiduesCloseTo](MTChain_residuehash.cpp.md)(MTCoordinates const &) const;
 
+> std::list\\<MTResidue\\*\\>[findResiduesCloseTo](MTChain_residuehash.cpp.md)(MTChain \\*c2, float maxdist) const;
+
 
 ## /* descriptors */
 
