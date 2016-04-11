@@ -15,7 +15,7 @@ MTMatrix53::MTMatrix53()
 MTMatrix53::MTMatrix53(std::string const & m)
 : MTMatrix(5,3)
 {
-
+    // todo
 }
 ~~~
 

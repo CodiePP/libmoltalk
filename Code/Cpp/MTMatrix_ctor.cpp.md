@@ -4,6 +4,7 @@ declared in [MTMatrix](MTMatrix.hpp.md)
 ~~~ { .cpp }
 MTMatrix::MTMatrix(int rows, int cols)
 {
+    //std::clog << "MTMatrix(" << rows << ", " << cols << ")" << std::endl;
 	if (cols > 0 && rows > 0) {
 		_rows = rows;
 		_cols = cols;
@@ -17,6 +18,7 @@ MTMatrix::MTMatrix(int rows, int cols)
 MTMatrix::MTMatrix(MTMatrix const & m)
 	: MTMatrix(m._rows,m._cols)
 {
+    //std::clog << "MTMatrix(MTMatrix(" << m._rows << ", " << m._cols << "))" << std::endl;
 	_transposed = m._transposed;
 	for (int i=0; i<_rows*_cols; i++) {	
 		_elements[i] = m._elements[i]; }

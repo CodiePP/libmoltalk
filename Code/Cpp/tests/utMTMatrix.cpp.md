@@ -9,9 +9,13 @@ Copyright 2016 by Alexander Diemand
 #endif
 
 #include "boost/test/unit_test.hpp"
+#include "boost/chrono.hpp"
+#include "boost/chrono/chrono_io.hpp"
+#include "boost/chrono/round.hpp"
 
 
 #include "MTMatrix.hpp"
+#include "MTMatrix53.hpp"
 #include <cmath>
 #include <iostream>
 ~~~
@@ -301,6 +305,52 @@ BOOST_AUTO_TEST_CASE( test_atRowColMult )
     m.atRowColMult(1,1, -2.0);
     BOOST_CHECK_EQUAL( 0.0, m.atRowCol(0,0) );
     BOOST_CHECK_EQUAL( -2.0, m.atRowCol(1,1) );
+}
+~~~
+
+## Test case: test_alignTo
+~~~ { .cpp }
+BOOST_AUTO_TEST_CASE( test_alignTo )
+{
+    auto fn = []()-> mt::MTMatrix53 {
+        mt::MTMatrix m1(4,3);
+        mt::MTMatrix m2(4,3);
+        m1.atRowColValue(0,0, 1.0);
+        m1.atRowColValue(0,1, -1.0);
+        m1.atRowColValue(0,2, -1.0);
+        m1.atRowColValue(1,0, 2.0);
+        m1.atRowColValue(1,1, 1.0);
+        m1.atRowColValue(1,2, 1.2);
+        m1.atRowColValue(2,0, 3.0);
+        m1.atRowColValue(2,1, 2.0);
+        m1.atRowColValue(2,2, 2.2);
+        m1.atRowColValue(3,0, 4.0);
+        m1.atRowColValue(3,1, 3.0);
+        m1.atRowColValue(3,2, 3.2);
+        m2.atRowColValue(0,0, 1.1);
+        m2.atRowColValue(0,1, -1.1);
+        m2.atRowColValue(0,2, -1.1);
+        m2.atRowColValue(1,0, 2.1);
+        m2.atRowColValue(1,1, 1.2);
+        m2.atRowColValue(1,2, 1.3);
+        m2.atRowColValue(2,0, 3.1);
+        m2.atRowColValue(2,1, 2.2);
+        m2.atRowColValue(2,2, 2.3);
+        m2.atRowColValue(3,0, 4.1);
+        m2.atRowColValue(3,1, 3.2);
+        m2.atRowColValue(3,2, 3.4);
+        return m1.alignTo(m2); };
+
+    const int n = 10000;
+    auto t0 = boost::chrono::system_clock::now();
+    for (int i = 0; i < n; i++) {
+        mt::MTMatrix53 mtr = fn(); }
+    auto t1 = boost::chrono::system_clock::now();
+    auto tdiff = t1 - t0;
+    long ms = boost::chrono::duration_cast\<boost::chrono::milliseconds\>(tdiff).count();
+    long us = boost::chrono::duration_cast\<boost::chrono::microseconds\>(tdiff / n).count();
+    std::clog << "it took " << ms << " milliseconds" << std::endl;
+    std::clog << "it took " << us << " microseconds per iteration" << std::endl;
 }
 ~~~
 

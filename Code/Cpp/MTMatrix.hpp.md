@@ -16,7 +16,7 @@
 
 namespace [mt](namespace_mt.list) {
 
-//class MTMatrix53; // only needed for alignTo
+class MTMatrix53;
 
 # class MTMatrix : public MTMatrixInterface
 
@@ -104,7 +104,7 @@ namespace [mt](namespace_mt.list) {
 
 ##		/* complex operations */
 
-//>[MTMatrix53](MTMatrix53.hpp.md) [alignTo](MTMatrix_alignTo.cpp.md)(MTMatrix const & m2) const;
+>[MTMatrix53](MTMatrix53.hpp.md) [alignTo](MTMatrix_alignTo.cpp.md)(MTMatrix const & m2);
 
 ##		/* creation */
 
