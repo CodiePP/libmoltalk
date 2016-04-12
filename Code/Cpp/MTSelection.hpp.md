@@ -48,7 +48,7 @@ public:
 
 ## /* alignment */
 
->MTMatrix53 [alignTo](MTSelection_alignment.cpp.md)(MTSelection const *) const;
+>MTMatrix53 [alignTo](MTSelection_alignTo.cpp.md)(MTSelection const &) const;
 
 ## /* creation */
 

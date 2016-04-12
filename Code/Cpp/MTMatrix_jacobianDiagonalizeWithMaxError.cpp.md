@@ -55,18 +55,18 @@ MTMatrix MTMatrix::jacobianDiagonalizeWithMaxError(double e) const
                                 }
                         }
                 }
-                std::clog << (boost::format("iteration: %d  t_sum=%4.2e") % iteration % t_sum).str() << std::endl;
+                //std::clog << (boost::format("iteration: %d  t_sum=%4.2e") % iteration % t_sum).str() << std::endl;
                 t_sum += t_sum;
                 if (!finite(t_sum) || lastsum <= t_sum)
                 {
-                        std::clog << (boost::format("MTMatrix_jacobianDiagonalizeWithMaxError: Abort! after iteration: %d  t_sum=%4.2e") % iteration % t_sum).str() << std::endl;
+                        //std::clog << (boost::format("MTMatrix_jacobianDiagonalizeWithMaxError: Abort! after iteration: %d  t_sum=%4.2e") % iteration % t_sum).str() << std::endl;
                         running = false;
                         break;
                 }
                 lastsum = t_sum;
                 if (t_sum <= e_sq)
                 {
-                        std::clog << (boost::format("MTMatrix_jacobianDiagonalizeWithMaxError: Converged! after iteration: %d  t_sum=%4.2e") % iteration % t_sum).str() << std::endl;
+                        //std::clog << (boost::format("MTMatrix_jacobianDiagonalizeWithMaxError: Converged! after iteration: %d  t_sum=%4.2e") % iteration % t_sum).str() << std::endl;
                         running = false;
                         break;
                 }

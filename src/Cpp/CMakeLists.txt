@@ -25,7 +25,7 @@ add_definitions( -DLinux )
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp -g -O1")
 # clang also wants its own stdlib
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++ -g -O0")
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g -O0")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g -O0 -Wno-deprecated")
 #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -g")
 #set(CMAKE_LD_FLAGS "${CMAKE_LD_FLAGS} -fopenmp")
 

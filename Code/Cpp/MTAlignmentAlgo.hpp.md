@@ -63,9 +63,9 @@ public:
 
 ##  /* creation */
 
->[MTAlignmentAlgo](MTAlignmentAlgo_ctor.cpp.md)(MTChain const \\*, MTChain const \\*);
+>[MTAlignmentAlgo](MTAlignmentAlgo_ctor.cpp.md)(MTChain \\*, MTChain \\*);
 
->[MTAlignmentAlgo](MTAlignmentAlgo_ctor.cpp.md)(MTChain const \\*, std::string const &);
+>[MTAlignmentAlgo](MTAlignmentAlgo_ctor.cpp.md)(MTChain \\*, std::string const &);
 
 >[MTAlignmentAlgo](MTAlignmentAlgo_ctor.cpp.md)(std::string const &, std::string const &);
 
@@ -74,9 +74,9 @@ public:
 
 protected:
 
->MTChain const * _chain1 { nullptr };
+>MTChain * _chain1 { nullptr };
 
->MTChain const * _chain2 { nullptr };
+>MTChain * _chain2 { nullptr };
 
 >std::list\\<MTAlPos\\> _positions;
 
@@ -85,6 +85,8 @@ protected:
 >float _gop, _gep;
 
 >MTSubstitutionMatrix *_substm { nullptr };
+
+>MTAlignmentAlgo() {};
 
 private:
 
@@ -97,8 +99,6 @@ private:
 >std::vector\\<MTResidue*\\> _residues1;
 
 >std::vector\\<MTResidue*\\> _residues2;
-
->MTAlignmentAlgo() = delete;
 
 ## /* brewery */
 
