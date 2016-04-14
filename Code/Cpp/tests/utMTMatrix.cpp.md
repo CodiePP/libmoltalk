@@ -82,9 +82,12 @@ BOOST_AUTO_TEST_CASE( test_matrixOfColumn )
 
 ## Test case: test_x
 matrix multiplication
-> [ -1, 11.0, 0.0       [ 1, 1      [ -1+11, -1+11
->   3.2, 1,   1   ]  x    1, 1    =   3.2+1+1, 3.2+1+1 ]
->                         1, 1 ]
+```
+ [ -1, 11.0, 0.0       [ 1, 1      [ -1+11, -1+11
+   3.2, 1,   1   ]  x    1, 1    =   3.2+1+1, 3.2+1+1 ]
+                         1, 1 ]
+```
+
 ~~~ { .cpp }
 BOOST_AUTO_TEST_CASE( test_x )
 {
