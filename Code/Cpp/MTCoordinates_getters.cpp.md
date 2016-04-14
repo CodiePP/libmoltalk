@@ -20,23 +20,25 @@ we compute the hashvalue of three-dimensional coordinates
 by mapping it to a fixed numerical range or grid. The width
 is defined by the selection of bits to encode the hashvalue.
 
-> input:-320          0       +320
->          0         320       640
->          |----------|---------|
-> output:  0          32        64 (6 bits) // (HASH_GRID_SIZE=10.0)
-> output:  0          64       128 (7 bits) // (HASH_GRID_SIZE=5.0)
-> output:  0         128       256 (8 bits) // (HASH_GRID_SIZE=2.5)
-> output:  0         256       512 (9 bits) // (HASH_GRID_SIZE=1.25)
-> output:  0         512      1024 (10 bits) // (HASH_GRID_SIZE=0.625)
->
-> input:-499          0       +499
->          0         499       998
->          |----------|---------|
-> output:  0          32        64 (6 bits) // (HASH_GRID_SIZE=15.6)
-> output:  0          64       128 (7 bits) // (HASH_GRID_SIZE=7.8)
-> output:  0         128       256 (8 bits) // (HASH_GRID_SIZE=3.9)
-> output:  0         256       512 (9 bits) // (HASH_GRID_SIZE=1.95)
-> output:  0         512      1024 (10 bits) // (HASH_GRID_SIZE=0.975)
+```
+ input:-320          0       +320
+          0         320       640
+          |----------|---------|
+ output:  0          32        64 (6 bits) // (HASH_GRID_SIZE=10.0)
+ output:  0          64       128 (7 bits) // (HASH_GRID_SIZE=5.0)
+ output:  0         128       256 (8 bits) // (HASH_GRID_SIZE=2.5)
+ output:  0         256       512 (9 bits) // (HASH_GRID_SIZE=1.25)
+ output:  0         512      1024 (10 bits) // (HASH_GRID_SIZE=0.625)
+
+ input:-499          0       +499
+          0         499       998
+          |----------|---------|
+ output:  0          32        64 (6 bits) // (HASH_GRID_SIZE=15.6)
+ output:  0          64       128 (7 bits) // (HASH_GRID_SIZE=7.8)
+ output:  0         128       256 (8 bits) // (HASH_GRID_SIZE=3.9)
+ output:  0         256       512 (9 bits) // (HASH_GRID_SIZE=1.95)
+ output:  0         512      1024 (10 bits) // (HASH_GRID_SIZE=0.975)
+```
 
 ~~~ { .cpp }
 
