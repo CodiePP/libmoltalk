@@ -21,13 +21,13 @@ void MTAlignmentAlgo::computeLocalAlignment()
 	_positions = {};
 
 	i = 0;
-	for (auto r : _residues1) {
-		std::clog << _chain1->name() << ": " << (++i) << " " << r->name() << "/" << r->oneLetterCode() << std::endl; }
+	//for (auto r : _residues1) {
+		//std::clog << _chain1->name() << ": " << (++i) << " " << r->name() << "/" << r->oneLetterCode() << std::endl; }
 	len1 = _seq1.size()+1;
 
 	i = 0;
-	for (auto r : _residues2) {
-		std::clog << _chain2->name() << ": " << (++i) << " " << r->name() << "/" << r->oneLetterCode() << std::endl; }
+	//for (auto r : _residues2) {
+		//std::clog << _chain2->name() << ": " << (++i) << " " << r->name() << "/" << r->oneLetterCode() << std::endl; }
 	len2 = _seq2.size()+1;
 
 	scorematrix = (float*)calloc((len1)*(len2),sizeof(float));

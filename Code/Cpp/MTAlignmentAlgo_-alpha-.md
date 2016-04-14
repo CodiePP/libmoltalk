@@ -11,6 +11,7 @@ declared in [MTAlignmentAlgo](MTAlignmentAlgo.hpp.md)
 
 #include <iostream>
 #include <cstring>
+#include <sstream>
 
 #include "boost/format.hpp"
 

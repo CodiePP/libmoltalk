@@ -82,7 +82,7 @@ public:
 
 > virtual MTResidue* prevResidue() const { return nullptr; }
 
-> virtual double distanceCATo(MTResidue* const) const { return 0.0; }
+> virtual double distanceCATo(MTResidue const * const) const { return 0.0; }
 
 ## /* tests */
 

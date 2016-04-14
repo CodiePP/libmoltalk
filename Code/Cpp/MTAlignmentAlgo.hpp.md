@@ -9,6 +9,7 @@
 
 #include "MTAlPos.hpp"
 #include "MTResidue.hpp"
+#include "MTSelection.hpp"
 
 #include <string>
 #include <list>
@@ -45,6 +46,10 @@ public:
 >std::list\\<MTAlPos\\>::const_iterator [cbegin](MTAlignmentAlgo_access.cpp.md)() const;
 
 >std::list\\<MTAlPos\\>::const_iterator [cend](MTAlignmentAlgo_access.cpp.md)() const;
+
+>void [selectAligned](MTAlignmentAlgo_access.cpp.md)(MTSelection &, MTSelection &) const;
+
+>void [selectGapped](MTAlignmentAlgo_access.cpp.md)(MTSelection &, MTSelection &) const;
 
 ## /* setters */
 

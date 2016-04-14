@@ -30,7 +30,7 @@ public:
 
 >// virtual [MTResidue](MTResidue.hpp.md)* [prevResidue](MTResidueAA_backbone.cpp.md)() const override; 
 
->// virtual double [distanceCATo](MTResidueAA_backbone.cpp.md)(MTResidue* const) const override;
+> virtual double [distanceCATo](MTResidueAA_backbone.cpp.md)(MTResidue const * const) const override;
 
 ## /* tests */
 

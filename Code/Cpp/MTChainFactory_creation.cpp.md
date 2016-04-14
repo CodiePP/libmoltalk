@@ -33,7 +33,7 @@ MTChain* MTChainFactory::createAAChainWithSequence(char code, std::string const 
 	for (char r : p_seq) {
 		rn[0]=r;
 		const std::string rnm(MTResidueAA::translate1to3Code(rn));
-		std::clog << " residue " << r << " => " << rnm << std::endl;
+		//std::clog << " residue " << r << " => " << rnm << std::endl;
 		auto rp = _rfactory.newInstance();
 		rp->number(ri++);
 		rp->name(rnm);

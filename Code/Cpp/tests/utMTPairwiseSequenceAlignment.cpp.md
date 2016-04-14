@@ -26,8 +26,8 @@ BOOST_AUTO_TEST_CASE( global_align_sequence_to_sequence )
 	const std::string seq2("ACDGGGEFGFFFFHI");
 	mt::MTPairwiseSequenceAlignment _al(seq1,seq2);
 	_al.computeGlobalAlignment();
-	//std::clog << _al << std::endl;
-        std::for_each(_al.cbegin(), _al.cend(), [](mt::MTAlPos const & alpos) {
+	std::clog << _al.toFasta();
+/*        std::for_each(_al.cbegin(), _al.cend(), [](mt::MTAlPos const & alpos) {
             if (alpos.residue1()) {
                 std::clog << alpos.residue1()->oneLetterCode() << " "; }
             else {
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE( global_align_sequence_to_sequence )
             else {
                 std::clog << "- "; }
         });
-        std::clog << std::endl;
+        std::clog << std::endl; */
 }
 ~~~
 
@@ -52,7 +52,7 @@ BOOST_AUTO_TEST_CASE( global_align_sequence_to_sequence_exact )
 	const std::string seq2("ACDEFGHI");
 	mt::MTPairwiseSequenceAlignment _al(seq1,seq2);
 	_al.computeGlobalAlignment();
-	std::clog << _al << std::endl;
+	std::clog << _al.toFasta() << std::endl;
 }
 ~~~
 
@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_CASE( global_align_sequence_to_sequence_repetitive )
 	const std::string seq2("DEFGHACDEFGHIACDEFGHIIACDACDEFGHIEFG");
 	mt::MTPairwiseSequenceAlignment _al(seq1,seq2);
 	_al.computeGlobalAlignment();
-	std::clog << _al << std::endl;
+	std::clog << _al.toFasta() << std::endl;
 }
 ~~~
 
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE( global_align_sequence_to_sequence_match_start )
 	const std::string seq2("ACDEFGHIQQQQQQQQ");
 	mt::MTPairwiseSequenceAlignment _al(seq1,seq2);
 	_al.computeGlobalAlignment();
-	std::clog << _al << std::endl;
+	std::clog << _al.toFasta() << std::endl;
 }
 ~~~
 
@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE( global_align_sequence_to_sequence_match_end )
 	const std::string seq2("ACDEFGHI");
 	mt::MTPairwiseSequenceAlignment _al(seq1,seq2);
 	_al.computeGlobalAlignment();
-	std::clog << _al << std::endl;
+	std::clog << _al.toFasta() << std::endl;
 }
 ~~~
 
@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_CASE( local_align_sequence_to_sequence )
 	const std::string seq2("ACDGGGEFGFFFFHI");
 	mt::MTPairwiseSequenceAlignment _al(seq1,seq2);
 	_al.computeLocalAlignment();
-	std::clog << _al << std::endl;
+	std::clog << _al.toFasta() << std::endl;
 }
 ~~~
 
@@ -128,7 +128,7 @@ BOOST_AUTO_TEST_CASE( local_align_sequence_to_sequence_repetitive )
 	const std::string seq2("ACDGGGEFGFFFFHI");
 	mt::MTPairwiseSequenceAlignment _al(seq1,seq2);
 	_al.computeLocalAlignment();
-	std::clog << _al << std::endl;
+	std::clog << _al.toFasta() << std::endl;
 }
 ~~~
 
@@ -140,7 +140,7 @@ BOOST_AUTO_TEST_CASE( local_align_sequence_to_sequence_exact )
 	const std::string seq2("ACDEFG");
 	mt::MTPairwiseSequenceAlignment _al(seq1,seq2);
 	_al.computeLocalAlignment();
-	std::clog << _al << std::endl;
+	std::clog << _al.toFasta() << std::endl;
 }
 ~~~
 
@@ -152,7 +152,7 @@ BOOST_AUTO_TEST_CASE( local_align_sequence_to_sequence_match_start )
 	const std::string seq2("ACDEFG");
 	mt::MTPairwiseSequenceAlignment _al(seq1,seq2);
 	_al.computeLocalAlignment();
-	std::clog << _al << std::endl;
+	std::clog << _al.toFasta() << std::endl;
 }
 ~~~
 
@@ -164,7 +164,7 @@ BOOST_AUTO_TEST_CASE( local_align_sequence_to_sequence_match_end )
 	const std::string seq2("ACDEFG");
 	mt::MTPairwiseSequenceAlignment _al(seq1,seq2);
 	_al.computeLocalAlignment();
-	std::clog << _al << std::endl;
+	std::clog << _al.toFasta() << std::endl;
 }
 ~~~
 
