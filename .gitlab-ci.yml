@@ -3,7 +3,8 @@ before_script:
 
 make_n_test:
     script:
-        - cmake -D BOOST_ROOT=/opt/boost_1_59_0 -D CMAKE_BUILD_TYPE=Debug .
+        - export BOOST_ROOT=/opt/boost_1_59_0/
+        - cmake -D CMAKE_BUILD_TYPE=Debug .
         - make -j2
         - cd src/Cpp/tests
         - ./UT_libmoltalk
