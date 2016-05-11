@@ -4,6 +4,7 @@ before_script:
 make_n_test:
     script:
         - export BOOST_ROOT=/opt/boost_1_59_0/
+        - export BOOST_LIBRARYDIR=/opt/boost_1_59_0/stage/lib
         - cmake -D CMAKE_BUILD_TYPE=Debug .
         - make -j2
         - cd src/Cpp/tests
