@@ -9,4 +9,6 @@ make_n_test:
         - cmake -D CMAKE_BUILD_TYPE=Debug .
         - make -j2
         - cd src/Cpp/tests
+        - ls -l UT_libmoltalk
         - ./UT_libmoltalk
+        - echo 'all done.'
