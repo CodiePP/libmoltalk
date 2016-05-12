@@ -54,13 +54,13 @@ BOOST_AUTO_TEST_CASE( manipulate_atoms )
 
 	r1->removeAtom("ATM2");
 	a2 = r1->getAtom("ATM2");
-	BOOST_CHECK(! bool(a2) );
+	BOOST_CHECK( a2 == nullptr );
 	r1->removeAtom(nullptr);
 	a1 = r1->getAtom("ATM1");
 	BOOST_CHECK( bool(a1) );
 	r1->removeAtom(r1->getAtom(42));
 	a1 = r1->getAtom("ATM1");
-	BOOST_CHECK(! bool(a1) );
+	BOOST_CHECK( a1 == nullptr );
 
 	BOOST_CHECK_EQUAL( 0, r1->allAtoms([](mt::MTAtom * a) { return; }) );
 }
