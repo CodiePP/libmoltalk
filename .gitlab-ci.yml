@@ -11,4 +11,5 @@ make_n_test:
         - cd src/Cpp/tests
         - ls -l UT_libmoltalk
         - ./UT_libmoltalk
+        - ls -l /tmp/
         - echo 'all done.'
