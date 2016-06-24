@@ -21,9 +21,6 @@ include_directories(${Boost_INCLUDE_DIRS})
 # mine
 include_directories(..)
 
-# link to external libraries
-set(libs, "")
-
 file(GLOB SRCS ut*.cpp mocks/*.cpp)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -34,7 +31,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 
 target_link_libraries ( ${PROJECT_NAME}
           moltalk_${CMAKE_BUILD_TYPE}
-          ${libs}
           ${Boost_LIBRARIES}
         )
 endif()
@@ -46,7 +42,7 @@ if (CMAKE_BUILD_TYPE STREQUAL "DebugProfile")
         set_target_properties(p${PROJECT_NAME} PROPERTIES LINK_FLAGS "-fprofile-arcs -ftest-coverage ")
         target_link_libraries ( p${PROJECT_NAME}
                 moltalk_p${CMAKE_BUILD_TYPE}
-                ${libs}
+                #${libs}
                 #gcov
                 ${Boost_LIBRARIES}
         )
