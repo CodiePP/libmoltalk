@@ -137,6 +137,8 @@ public:
 
 >[MTResidue](MTResidue_ctor.cpp.md)(MTResidue const &);
 
+>explicit [MTResidue](MTResidue_ctor.cpp.md)(int nr, std::string const & nm);
+
 >[MTResidue](MTResidue_ctor.cpp.md)();
 
 >virtual [~MTResidue](MTResidue_dtor.cpp.md)();
