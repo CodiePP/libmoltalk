@@ -90,7 +90,7 @@ public:
 
 > virtual bool [isNucleicAcid](MTResidue_tests.cpp.md)() const;
 
-> virtual bool [haveAtomsPresent](MTResidue_tests.cpp.md)() const;
+> virtual bool [hasAtomsPresent](MTResidue_tests.cpp.md)() const;
 
 > virtual bool [isModified](MTResidue_tests.cpp.md)() const;
 

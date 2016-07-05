@@ -15,7 +15,7 @@ bool MTResidue::isNucleicAcid() const
 	return false;
 }
 
-bool MTResidue::haveAtomsPresent() const
+bool MTResidue::hasAtomsPresent() const
 {
 	return false;
 }
