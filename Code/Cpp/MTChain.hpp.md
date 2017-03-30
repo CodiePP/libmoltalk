@@ -66,7 +66,7 @@ public:
 
 ## /* reference to parent structure */
 
->virtual [MTStructure](MTStructure.hpp.md)* [structure](MTChain_access.cpp.md)() const;
+> // virtual [MTStructure](MTStructure.hpp.md)* [structure](MTChain_access.cpp.md)() const;
 
 
 ## /* utilities */

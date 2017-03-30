@@ -5,8 +5,12 @@ declared in [MTResidue](MTResidue.hpp.md)
 
 bool MTResidue::isStandardAminoAcid() const
 {
-	const std::string c1(MTResidueAA::translate3to1Code(name()));
-	if (!c1.empty()) { return true; }
+	std::string _search = _name;
+	if (isModified()) {
+		_search = _modname;
+	}
+	const std::string c1(MTResidueAA::translate3to1Code(_search));
+	if (c1 != "X") { return true; }
 	return false;
 }
 
@@ -22,7 +26,7 @@ bool MTResidue::hasAtomsPresent() const
 
 bool MTResidue::isModified() const
 {
-	return false;
+	return _modname.size() > 0;
 }
 
 ~~~

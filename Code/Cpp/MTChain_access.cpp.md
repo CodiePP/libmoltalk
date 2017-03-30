@@ -23,9 +23,14 @@ std::string MTChain::eccode() const
 		return _s; }
 	return "?";
 }
+~~~
+
+we do not have access to this information
+~~~ { .cpp }
+/*
 MTStructure* MTChain::structure() const
 {
 	return _strx;
-}
+} */
 ~~~
 

@@ -159,10 +159,10 @@ int mkInt (const char *buffer, int len)
 		return res; }
 }
 
-std::string MTPDBParser::pimpl::prtISOdate(timestamp const & s)
+std::string MTPDBParser::pimpl::prtISOdate(long s)
 {
 	struct tm _tm;
-	time_t _t = boost::chrono::round<boost::chrono::seconds>(s.time_since_epoch()).count();
+	time_t _t = s; //boost::chrono::round<boost::chrono::seconds>(s.time_since_epoch()).count();
 	localtime_r(&_t, &_tm);
 
 	std::ostringstream ss;
@@ -170,13 +170,12 @@ std::string MTPDBParser::pimpl::prtISOdate(timestamp const & s)
 	return ss.str();
 }
 
-timestamp MTPDBParser::pimpl::mkISOdate(std::string const & s)
- /* format: DD-MMM-YY */
+long MTPDBParser::pimpl::mkISOdate(std::string const & s)
 {
 /* given a string in the format DD-MMM-YY, where MMM is a textual repr. of
  * a month, return the ISO date as YYYY-MM-DD 
  */
-	if (s.empty()) { return boost::chrono::system_clock::from_time_t(0); }
+	if (s.empty()) { return 0L; }
 	const char *dstring = s.c_str();
 	int month=1;
 	int year=0;
@@ -229,12 +228,10 @@ timestamp MTPDBParser::pimpl::mkISOdate(std::string const & s)
 	struct tm _tm;
 	_tm.tm_year = year-1900;
 	_tm.tm_mday = day;
-	_tm.tm_mon = month;
-	_tm.tm_hour = 0; _tm.tm_min = 0; _tm.tm_sec = 0;
-	//std::clog << " y:" << year << " m:" << month << " d:" << day << std::endl;
+	_tm.tm_mon = month-1;
+	_tm.tm_hour = 12; _tm.tm_min = 0; _tm.tm_sec = 0;
 	time_t _t = mktime(&_tm);
-	//std::clog << " time is: " << ctime(&_t) << std::endl;
-	return boost::chrono::system_clock::from_time_t(_t);
+	return (long)_t;
 }
 
 std::list<std::string> MTPDBParser::pimpl::make_list_of_strings(std::string const & s) const
@@ -878,8 +875,13 @@ REVDAT   1   08-AUG-01 1IM2    0                                               *
 	char tbuf[32];
 	int n = mkInt(line.buf+7, 3);
 	snprintf(tbuf, 32, "REVDAT_%d", n);
-	//std::clog << "setting rev date: " << line.substr(13, 9) << " for number = " << n << std::endl;
-	_strx->setDescriptor(std::string(tbuf), line.substr(13, 9));
+	long _dt = mkISOdate(line.substr(13, 9));
+	_strx->setDescriptor(std::string(tbuf), _dt);
+	if (n > _lastrevnr) {
+		//std::clog << "setting rev date: " << line.substr(13, 9) << " for number = " << n << std::endl;
+		_lastrevnr = n;
+		_lastrevdate = _dt;
+	}
 }
 
 void MTPDBParser::pimpl::readHetname(pdbline const & line)
@@ -903,8 +905,11 @@ void MTPDBParser::pimpl::readModres(pdbline const & line)
 /*
 MODRES 1IM2 MSE A   55  MET  SELENOMETHIONINE                                   
 */
-	std::string _modname(line.buf+12,3);
-	std::string _moddesc(line.buf+29,line.length()-29);
+	std::string _modname(line.buf+24,3);
+	std::string _moddesc;
+	if (line.length() > 29) {
+		_moddesc = std::string(line.buf+29,line.length()-29);
+	}
 	char _ch = line.buf[16];
 	int _rnum = mkInt(line.buf+18,4);
 	modified_residues.push_back(std::make_tuple(_ch, _rnum, _modname, _moddesc));
@@ -1062,13 +1067,15 @@ void MTPDBParser::pimpl::readLine(struct pdbline const & _pdbline)
 
 void MTPDBParser::pimpl::finish_parsing()
 {
-        // set the parsed data in the structure
-        _strx->_pdbcode = _pdbcode;
-        _strx->_title = _title;
-        _strx->_header = _header;
-        _strx->_keywords = make_list_of_strings(_keywords);
-        _strx->_resolution = _resolution;
+	// set the parsed data in the structure
+	_strx->_pdbcode = _pdbcode;
+	_strx->_title = _title;
+	_strx->_header = _header;
+	_strx->_keywords = make_list_of_strings(_keywords);
+	_strx->_resolution = _resolution;
+	_strx->setDescriptor("DATE", _date);
 	_strx->setDescriptor("EXPDATA", long(_expdata));
+	_strx->setDescriptor("REVDATE", _lastrevdate);
 
 	// data by molecule id
 	std::string k,v;
@@ -1102,6 +1109,9 @@ void MTPDBParser::pimpl::finish_parsing()
 			k = "ENGINEERED_ ";
 			k.back() = i + '0';
 			if (_strx->getDescriptor(k, v)) { _ch->setDescriptor(k.substr(0,k.length()-2), v); }
+			k = "EC_ ";
+			k.back() = i + '0';
+			if (_strx->getDescriptor(k, v)) { _ch->setDescriptor(k.substr(0,k.length()-2), v); }
 		}
 	}
 
@@ -1118,6 +1128,7 @@ void MTPDBParser::pimpl::finish_parsing()
 		if (_chain) {
 			auto _residue = _chain->getResidue(_rnum);
 			if (_residue) {
+				std::clog << "Residue " << _residue->key() << " has modification " << _moddesc << " is actually: " << _modname << std::endl;
 				_residue->_modname = _modname;
 				_residue->_moddesc = _moddesc;
 			}
@@ -1149,8 +1160,8 @@ void MTPDBParser::pimpl::setup_parsers()
 	// default information
 	_pdbcode = "0UNK";
 	_header = "HEADER MISSING";
-	//_date = 0;
-	//_lastrevdate = 0;
+	_date = 0;
+	_lastrevdate = 0;
 	_title = "";
 	_keywords = "";
 	_resolution = 0.0;

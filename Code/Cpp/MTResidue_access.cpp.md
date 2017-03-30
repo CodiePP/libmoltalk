@@ -34,10 +34,17 @@ std::string MTResidue::description() const
 {
 	return _description;
 }
+
 std::string MTResidue::oneLetterCode() const
 {
-	return "X";
+	std::string _search = _name;
+	if (isModified()) {
+		std::clog << "oneLetterCode of " << _modname << " (" << _moddesc << ")" << std::endl;
+		_search = _modname;
+	}
+	return MTResidueAA::translate3to1Code(_search);
 }
+
 std::string MTResidue::modname() const
 {
 	return _modname;

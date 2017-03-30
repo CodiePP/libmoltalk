@@ -20,7 +20,7 @@ bool MTResidueAA::hasAtomsPresent() const
 
 bool MTResidueAA::isModified() const
 {
-	return false;
+	return _modname.size() > 0;
 }
 
 ~~~
