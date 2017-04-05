@@ -6,6 +6,15 @@ declared in [MTPDBParser](MTPDBParser.hpp.md)
 int mkInt (const char *buffer, int len);
 double mkFloat (const char *buffer, int len);
 
+std::string MTPDBParser::prtISOdate(long dt) const {
+  return _pimpl->prtISOdate(dt);
+}
+
+long MTPDBParser::mkISOdate(std::string const & dt) const {
+  return _pimpl->mkISOdate(dt);
+}
+
+
 #ifndef NDEBUG
 
 int MTPDBParser::make_int(const char * s, int l) const
@@ -17,16 +26,6 @@ double MTPDBParser::make_float(const char * s, int l) const
 {
 	return mkFloat(s, l);
 }
-
-/*
-timestamp MTPDBParser::mkISOdate(std::string const & s) const
-{
-	return _pimpl->mkISOdate(s);
-}
-std::string MTPDBParser::prtISOdate(timestamp const & s) const
-{
-	return _pimpl->prtISOdate(s);
-} */
 
 void MTPDBParser::clipright(std::string & s) const
 {
@@ -159,18 +158,31 @@ int mkInt (const char *buffer, int len)
 		return res; }
 }
 
-std::string MTPDBParser::pimpl::prtISOdate(long s)
+std::string MTPDBParser::pimpl::prtISOdate(long s) const
 {
 	struct tm _tm;
 	time_t _t = s; //boost::chrono::round<boost::chrono::seconds>(s.time_since_epoch()).count();
 	localtime_r(&_t, &_tm);
 
 	std::ostringstream ss;
-	ss << _tm.tm_year << "-" << _tm.tm_mon << "-" << _tm.tm_mday;
+	//ss << (_tm.tm_year+1900) << "-" << (_tm.tm_mon+1) << "-" << _tm.tm_mday;
+	int yy=(_tm.tm_year+1900);
+  int mm=(_tm.tm_mon+1);
+  int dd=_tm.tm_mday;
+  static std::array<std::string,12> marr={"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
+  if (dd < 10) {
+    ss << "0"; }
+  ss << dd << "-";
+  ss << marr[mm-1] << "-";
+  if (yy >= 2000) {
+    ss << std::setfill('0') << std::setw(2) << (yy-2000); 
+  } else {
+    ss << std::setfill('0') << std::setw(2) << (yy-1900);
+  }
 	return ss.str();
 }
 
-long MTPDBParser::pimpl::mkISOdate(std::string const & s)
+long MTPDBParser::pimpl::mkISOdate(std::string const & s) const
 {
 /* given a string in the format DD-MMM-YY, where MMM is a textual repr. of
  * a month, return the ISO date as YYYY-MM-DD 
@@ -877,6 +889,7 @@ REVDAT   1   08-AUG-01 1IM2    0                                               *
 	snprintf(tbuf, 32, "REVDAT_%d", n);
 	long _dt = mkISOdate(line.substr(13, 9));
 	_strx->setDescriptor(std::string(tbuf), _dt);
+  long _dt2;
 	if (n > _lastrevnr) {
 		//std::clog << "setting rev date: " << line.substr(13, 9) << " for number = " << n << std::endl;
 		_lastrevnr = n;
@@ -1126,12 +1139,25 @@ void MTPDBParser::pimpl::finish_parsing()
 		_moddesc = std::get<3>(e);
 		auto _chain = _strx->getChain(_c);
 		if (_chain) {
-			auto _residue = _chain->getResidue(_rnum);
+			auto _residue = _chain->getHeterogen(_rnum);
 			if (_residue) {
-				std::clog << "Residue " << _residue->key() << " has modification " << _moddesc << " is actually: " << _modname << std::endl;
+        // if the modified residue is in the heterogens list
+        // it is actually a standard amino acid
+        // so move it to the residues list
+				std::clog << "Heterogen " << _residue->key() << " has modification " << _moddesc << " is actually: " << _modname << std::endl;
 				_residue->_modname = _modname;
 				_residue->_moddesc = _moddesc;
-			}
+        _chain->addResidue(_residue);
+        _chain->removeHeterogen(_residue->number());
+			} else {
+        _residue = _chain->getResidue(_rnum);
+        if (_residue) {
+          // otherwise it's a residue
+          std::clog << "Residue " << _residue->key() << " has modification " << _moddesc << " is actually: " << _modname << std::endl;
+          _residue->_modname = _modname;
+          _residue->_moddesc = _moddesc;
+        }
+      }
 		}
 	}
 }

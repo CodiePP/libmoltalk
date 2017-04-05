@@ -688,10 +688,18 @@ BOOST_AUTO_TEST_CASE( parse_revdate )
 	mt::MTPDBParser _parser;
 	auto _strx = _parser.parseStructureFromPDBFile(fname);
 
-	std::string s;
-	BOOST_CHECK( _strx->getDescriptor("REVDAT_1", s) );
+  std::string s;
+	long dt;
+	BOOST_CHECK( _strx->getDescriptor("REVDAT_1", dt) );
+  s = _parser.prtISOdate(dt);
 	BOOST_CHECK_EQUAL( "08-AUG-01", s );
-	BOOST_CHECK( _strx->getDescriptor("REVDAT_2", s) );
+	BOOST_CHECK( _strx->getDescriptor("REVDAT_2", dt) );
+  s = "";
+  s = _parser.prtISOdate(dt);
+	BOOST_CHECK_EQUAL( "24-FEB-09", s );
+	BOOST_CHECK( _strx->getDescriptor("REVDATE", dt) );
+  s = "";
+  s = _parser.prtISOdate(dt);
 	BOOST_CHECK_EQUAL( "24-FEB-09", s );
 }
 ~~~
@@ -1016,10 +1024,20 @@ BOOST_AUTO_TEST_CASE( parse_modres )
 	BOOST_CHECK( bool(_strx) );
 	auto _chain = _strx->getChain('A');
 	BOOST_CHECK( bool(_chain) );
-	auto _residue = _chain->getResidue(38);
+	auto _residue = _chain->getResidue(4);
 	BOOST_CHECK( bool(_residue) );
-
-	BOOST_CHECK_EQUAL( "MSE" , _residue->modname() );
+	BOOST_CHECK_EQUAL( "MSE" , _residue->name() );
+	BOOST_CHECK_EQUAL( "MET" , _residue->modname() );
+	BOOST_CHECK_EQUAL( "SELENOMETHIONINE" , _residue->moddescription() );
+	_residue = _chain->getResidue(38);
+	BOOST_CHECK( bool(_residue) );
+	BOOST_CHECK_EQUAL( "MSE" , _residue->name() );
+	BOOST_CHECK_EQUAL( "MET" , _residue->modname() );
+	BOOST_CHECK_EQUAL( "SELENOMETHIONINE" , _residue->moddescription() );
+	_residue = _chain->getResidue(55);
+	BOOST_CHECK( bool(_residue) );
+	BOOST_CHECK_EQUAL( "MSE" , _residue->name() );
+	BOOST_CHECK_EQUAL( "MET" , _residue->modname() );
 	BOOST_CHECK_EQUAL( "SELENOMETHIONINE" , _residue->moddescription() );
 }
 ~~~

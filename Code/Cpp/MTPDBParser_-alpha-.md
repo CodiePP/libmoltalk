@@ -21,6 +21,7 @@
 #include "boost/chrono/chrono_io.hpp"
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <sstream>
 
@@ -101,8 +102,8 @@ struct MTPDBParser::pimpl {
 	void clipleft(std::string &) const;
 	void clip(std::string &) const;
 
-	std::string prtISOdate(long dt);
-	long mkISOdate(std::string const & dt);
+	std::string prtISOdate(long dt) const;
+	long mkISOdate(std::string const & dt) const;
 
 	void finish_parsing();
 	void readLine(pdbline const & line);

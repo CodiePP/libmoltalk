@@ -21,7 +21,10 @@ std::string MTChain::getSequence() const
 	std::set<MTResidue*,MTResidueCmp> sortres;
 	for (auto const & e : _residues) {
 		if (e.second && e.second->isStandardAminoAcid()) {
-			sortres.insert(e.second); }
+			sortres.insert(e.second);
+    } else {
+      std::clog << "residue " << e.second->name() << e.second->number() << " is not standard residue!" << std::endl;
+    }
 	}
 	int _lastpos = -1;
 	std::string _seq("");

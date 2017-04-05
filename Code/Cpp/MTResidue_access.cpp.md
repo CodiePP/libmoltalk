@@ -39,7 +39,7 @@ std::string MTResidue::oneLetterCode() const
 {
 	std::string _search = _name;
 	if (isModified()) {
-		std::clog << "oneLetterCode of " << _modname << " (" << _moddesc << ")" << std::endl;
+		//std::clog << "oneLetterCode of " << _modname << " (" << _moddesc << ")" << std::endl;
 		_search = _modname;
 	}
 	return MTResidueAA::translate3to1Code(_search);
