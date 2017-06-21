@@ -34,6 +34,7 @@ std::string MTResidueAA::translate3to1Code(std::string const & c3)
 		break;
 	case 'M':
 		if (s[1]=='E' && s[2]=='T') { return "M"; }
+		if (s[1]=='S' && s[2]=='E') { return "M"; }
 		break;
 	case 'P':
 		if (s[1]=='H' && s[2]=='E') { return "F"; }
@@ -85,4 +86,3 @@ std::string MTResidueAA::translate1to3Code(std::string const & c1)
 
 
 ~~~
-

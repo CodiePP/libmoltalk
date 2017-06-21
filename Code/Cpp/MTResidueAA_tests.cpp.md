@@ -13,14 +13,14 @@ bool MTResidueAA::isNucleicAcid() const
 	return false;
 }
 
-bool MTResidueAA::haveAtomsPresent() const
+bool MTResidueAA::hasAtomsPresent() const
 {
 	return false;
 }
 
 bool MTResidueAA::isModified() const
 {
-	return false;
+	return _modname.size() > 0;
 }
 
 ~~~

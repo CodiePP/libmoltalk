@@ -21,6 +21,7 @@
 #include "boost/chrono/chrono_io.hpp"
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <sstream>
 
@@ -50,46 +51,46 @@ struct MTPDBParser::pimpl {
 	pimpl() { setup_parsers(); }
 	~pimpl() {};
 
-        using fn_parser = std::function<void(struct pdbline const &)>;
-        std::unordered_map<std::string, fn_parser> _parserSelectors;
+	using fn_parser = std::function<void(struct pdbline const &)>;
+	std::unordered_map<std::string, fn_parser> _parserSelectors;
 
 	MTChainFactory _chainfactory;
 	MTResidueFactory _residuefactory_aa;
 	MTResidueFactory _residuefactory_het;
 
 	long _options;
-        MTStructure* _strx;
-        int _molid { 0 };
+	MTStructure* _strx;
+	int _molid { 0 };
 	std::list<std::string> _molid_chains[10];
-        std::string _pdbcode;
-        timestamp _date;
-        std::string _header;
-        std::string _title;
-        std::string _keywords;
-        float _resolution;
-        MTStructure::ExperimentType _expdata;
-        int _lastrevnr;
-        timestamp _lastrevdate;
+	std::string _pdbcode;
+	long _date;
+	std::string _header;
+	std::string _title;
+	std::string _keywords;
+	float _resolution;
+	MTStructure::ExperimentType _expdata;
+	int _lastrevnr;
+	long _lastrevdate;
 
-        std::unordered_map<char, MTChain*> relation_chain_seqres;
-        std::unordered_map<char, int> relation_chain_molid;
-        std::unordered_map<int, std::string> relation_molid_eccode;
-        std::unordered_map<int, std::string> relation_molid_compound;
-        std::unordered_map<int, std::string> relation_molid_source;
-        std::unordered_map<std::string, std::string> relation_residue_modres;
+	std::unordered_map<char, MTChain*> relation_chain_seqres;
+	std::unordered_map<char, int> relation_chain_molid;
+	std::unordered_map<int, std::string> relation_molid_eccode;
+	std::unordered_map<int, std::string> relation_molid_compound;
+	std::unordered_map<int, std::string> relation_molid_source;
+	std::unordered_map<std::string, std::string> relation_residue_modres;
 
-        bool _isCompressed;
-        bool _srcOldStyle;
-        bool _cmpndOldStyle;
-        bool _newfileformat;
-        int _modelnr;
-        bool _haveModel1;
+	bool _isCompressed;
+	bool _srcOldStyle;
+	bool _cmpndOldStyle;
+	bool _newfileformat;
+	int _modelnr;
+	bool _haveModel1;
 
 	MTAtom* _known_atoms[9999];
 	int _max_atoms_known { 9999 };
-        MTAtom* _lastcarboxyl { nullptr };
-        MTAtom* _last3prime { nullptr };
-        char _lastalternatesite;
+	MTAtom* _lastcarboxyl { nullptr };
+	MTAtom* _last3prime { nullptr };
+	char _lastalternatesite;
 
 	void setup_parsers();
 
@@ -101,8 +102,8 @@ struct MTPDBParser::pimpl {
 	void clipleft(std::string &) const;
 	void clip(std::string &) const;
 
-	std::string prtISOdate(timestamp const & dt);
-	timestamp mkISOdate(std::string const & dt);
+	std::string prtISOdate(long dt) const;
+	long mkISOdate(std::string const & dt) const;
 
 	void finish_parsing();
 	void readLine(pdbline const & line);

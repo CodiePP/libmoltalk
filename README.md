@@ -55,9 +55,11 @@ cd src/Cpp
 enter libmoltalk's root and create Makefiles
 
 ```
-cd ../../
+mkdir BUILD
 
-cmake -D CMAKE_BUILD_TYPE=Debug .
+cd BUILD
+
+cmake -D CMAKE_BUILD_TYPE=Debug ..
 ```
 
 then, compile and link

@@ -38,7 +38,7 @@ public:
 
 > virtual bool [isNucleicAcid](MTResidueAA_tests.cpp.md)() const override;
 
-> virtual bool [haveAtomsPresent](MTResidueAA_tests.cpp.md)() const override;
+> virtual bool [hasAtomsPresent](MTResidueAA_tests.cpp.md)() const override;
 
 > virtual bool [isModified](MTResidueAA_tests.cpp.md)() const override;
 

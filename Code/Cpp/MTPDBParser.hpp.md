@@ -62,6 +62,12 @@ public:
 
 >[MTStructure](MTStructure.hpp.md)* [parseStructureFromPDBStream](MTPDBParser_parseStructureFromPDB.cpp.md)(std::istream & s);
 
+## /* utilities */
+
+>long [mkISOdate](MTPDBParser_parsers.cpp.md)(std::string const & dt) const;
+
+>std::string [prtISOdate](MTPDBParser_parsers.cpp.md)(long dt) const;
+
 ## /* brewery */
 
 >//[code header](MTPDBParser_-alpha-.md)();
