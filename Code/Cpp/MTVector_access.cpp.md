@@ -20,7 +20,10 @@ std::string MTVector::toString() const
 	return ss.str();
 }
 
-    //std::string MTVector::description() const;
+std::string MTVector::description() const
+{
+  return toString();
+}
 
 void MTVector::atDim(int dim, double v)
 {
