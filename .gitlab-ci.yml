@@ -1,0 +1,9 @@
+before_script:
+    - cd src/Cpp; sh ./mk_libmoltalk.sh; cd ../../
+
+make_n_test:
+    script:
+        - cmake -D CMAKE_BUILD_TYPE=Debug .
+        - make -j2
+        - cd src/Cpp/tests
+        - ./UT_libmoltalk
